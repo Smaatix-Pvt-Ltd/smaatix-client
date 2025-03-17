@@ -1,7 +1,7 @@
 import React from 'react';
 import ThemeToggle from '../UI/ThemeToggle';
 
-const Navbar = () => {
+const Navbar1 = () => {
     return (
         <nav className={` py-4 `}>
             <div className='container mx-auto px-6 flex justify-between items-center'>
@@ -87,4 +87,4 @@ const Navbar = () => {
     );
 };
 
-export default Navbar;
+export default Navbar1;

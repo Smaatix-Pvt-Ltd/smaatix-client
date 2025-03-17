@@ -7,11 +7,12 @@ import {
 import IndexPage from './components/landingpage/index.js';
 
 import MainLayout from './layout/MainLayout';
+import Contact from './components/contact/Contact';
 
 const App = () => {
     return (
-        <MainLayout>
-            <Router>
+        <Router>
+            <MainLayout>
                 <div className='dark:bg-[#212121] '>
                     <Routes>
                         <Route
@@ -25,12 +26,18 @@ const App = () => {
                         <Route
                             path='/index'
                             element={<IndexPage />}
-                        />{' '}
+                        >
+                            {' '}
+                        </Route>
+                        <Route
+                            path='/contact'
+                            element={<Contact />}
+                        />
                         {/* Add the route for the IndexPage component */}
                     </Routes>
                 </div>
-            </Router>
-        </MainLayout>
+            </MainLayout>
+        </Router>
     );
 };
 

@@ -6,18 +6,18 @@ const Hero = () => {
         <div className='relative h-[700px] font-[montserrat]'>
             {/* Background with gradient */}
             <div
-                className={`w-full h-full  flex flex-col justify-center items-center text-white bg-gradient-to-r from-gray-900 to-purple-500 dark:bg-gradient-to-r dark:from-black dark:to-[#212121]/80`}
+                className={`w-full h-full  flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-r dark:from-black dark:to-[#1b1b1b]/80`}
             >
                 <div className='container mx-auto px-6 flex flex-col md:flex-row justify-between items-center z-10 relative'>
                     {/* Left Column */}
                     <div className='md:w-1/2 text-center md:text-left mb-8 md:mb-0'>
-                        <h3 className='text-xl font-medium mb-4 text-gray-500 tracking-wide'>
+                        <h3 className='text-xl font-medium mb-4 text-gray-400 tracking-wide'>
                             Go Beyond Your Wildest Dreams
                         </h3>
                         <h1 className='text-6xl md:text-5xl font-bold mb-6 leading-tight'>
                             Your Digital Presence Is About To Take Off
                         </h1>
-                        <p className='mb-8 text-sm opacity-90 font-medium text-gray-400'>
+                        <p className='mb-8 text-sm opacity-90 font-medium text-gray-200'>
                             Transform your business with cutting-edge technology
                             solutions tailored to your unique needs.
                         </p>
@@ -78,7 +78,7 @@ const Hero = () => {
             </div>
 
             {/* Circular decorative elements */}
-            <div className='absolute left-10 top-20 w-40 h-40  rounded-full opacity-20 blur-l bg-purple-600 dark:bg-purple-600 blur-lg  shadow-white-6xl '></div>
+            <div className='absolute left-10 top-20 w-40 h-40  rounded-full opacity-20 blur-l bg-purple-600 dark:bg-zinc-300 blur-sm backdrop-blur-2xl  shadow-white-6xl '></div>
             <div
                 className={`absolute right-20 bottom-40 w-64 h-64  blur-sm rounded-full opacity-20 blur-l bg-purple-900`}
             ></div>
