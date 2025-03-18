@@ -1,10 +1,9 @@
+import React, { useState, useEffect, useRef, useMemo } from 'react';
+import ScrollToTop from '../components/UI/scrollToTop';
 import HeroSection from '../components/careers/HeroSection';
 import JobListings from '../components/careers/JobListing';
 import JobSearch from '../components/careers/JobSearch';
-import LifeAtCompany from '../components/careers/LifeAtCompany'; // Fixed typo here
-import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import LifeAtCompany from '../components/careers/LifeAtCompany';
 
 interface Job {
     title: string;
@@ -14,138 +13,119 @@ interface Job {
 }
 
 const Careers = () => {
-    const [jobs, setJobs] = useState<Job[]>([
-        {
-            title: 'Software Engineer',
-            location: 'Remote',
-            department: 'Engineering',
-            applyLink: '#',
-        },
-        {
-            title: 'Product Manager',
-            location: 'New York',
-            department: 'Product',
-            applyLink: '#',
-        },
-        {
-            title: 'Marketing Specialist',
-            location: 'San Francisco',
-            department: 'Marketing',
-            applyLink: '#',
-        },
-        {
-            title: 'HR Manager',
-            location: 'Remote',
-            department: 'HR',
-            applyLink: '#',
-        },
-        {
-            title: 'Software Engineer',
-            location: 'Remote',
-            department: 'Engineering',
-            applyLink: '#',
-        },
-        {
-            title: 'Product Manager',
-            location: 'New York',
-            department: 'Product',
-            applyLink: '#',
-        },
-        {
-            title: 'Marketing Specialist',
-            location: 'San Francisco',
-            department: 'Marketing',
-            applyLink: '#',
-        },
-        {
-            title: 'HR Manager',
-            location: 'Remote',
-            department: 'HR',
-            applyLink: '#',
-        },
-        {
-            title: 'Software Engineer',
-            location: 'Remote',
-            department: 'Engineering',
-            applyLink: '#',
-        },
-        {
-            title: 'Product Manager',
-            location: 'New York',
-            department: 'Product',
-            applyLink: '#',
-        },
-        {
-            title: 'Marketing Specialist',
-            location: 'San Francisco',
-            department: 'Marketing',
-            applyLink: '#',
-        },
-        {
-            title: 'HR Manager',
-            location: 'Remote',
-            department: 'HR',
-            applyLink: '#',
-        },
-    ]);
+    const [jobs, setJobs] = useState<Job[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
-    const originalJobs = useRef(jobs); // Store original jobs
-    const navigate = useNavigate();
-    const location = useLocation();
-    const jobListingsRef = useRef<HTMLElement>(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [location, setLocation] = useState('');
+    const [department, setDepartment] = useState('');
+
+    const originalJobs = useRef<Job[]>([]);
+    const section3 = useRef<HTMLElement | null>(null);
+
+    // useEffect(() => {
+    //     const hash = window.location.hash;
+    //     if (hash === '#job-listings' && section3.current) {
+    //         setTimeout(() => {
+    //             section3.current?.scrollIntoView({
+    //                 behavior: 'smooth',
+    //                 block: 'start',
+    //             });
+    //         }, 100);
+    //     }
+    // }, []);
+
+    useEffect(() => {
+        const fetchJobs = async () => {
+            try {
+                const jobData = [
+                    {
+                        title: 'Software Engineer',
+                        location: 'Remote',
+                        department: 'Engineering',
+                        applyLink: '#',
+                    },
+                    {
+                        title: 'Product Manager',
+                        location: 'New York',
+                        department: 'Product',
+                        applyLink: '#',
+                    },
+                    {
+                        title: 'Marketing Specialist',
+                        location: 'San Francisco',
+                        department: 'Marketing',
+                        applyLink: '#',
+                    },
+                    {
+                        title: 'HR Manager',
+                        location: 'Remote',
+                        department: 'HR',
+                        applyLink: '#',
+                    },
+                ];
+                originalJobs.current = jobData;
+                setJobs(jobData);
+                setLoading(false);
+            } catch (err) {
+                console.error('Error fetching jobs:', err);
+                setError('Failed to fetch jobs. Please try again later.');
+                setLoading(false);
+            }
+        };
+        fetchJobs();
+    }, []);
+
+    const filteredJobs = useMemo(() => {
+        const lowerSearchTerm = searchTerm.toLowerCase();
+        const lowerLocation = location.toLowerCase();
+        const lowerDepartment = department.toLowerCase();
+
+        return jobs.filter(
+            (job) =>
+                job.title.toLowerCase().includes(lowerSearchTerm) &&
+                (!location || job.location.toLowerCase() === lowerLocation) &&
+                (!department ||
+                    job.department.toLowerCase() === lowerDepartment)
+        );
+    }, [jobs, searchTerm, location, department]);
+
+    const scrollHandler = () => {
+        console.log(section3.current);
+        if (section3.current) {
+            window.scrollTo({
+                top: section3.current.offsetTop,
+                behavior: 'smooth',
+            });
+        }
+    };
 
     const handleSearch = (
         searchTerm: string,
         location: string,
         department: string
     ) => {
-        const filteredJobs = originalJobs.current.filter((job) => {
-            return (
-                job.title.toLowerCase().includes(searchTerm) &&
-                (location === '' || job.location.toLowerCase() === location) &&
-                (department === '' ||
-                    job.department.toLowerCase() === department)
-            );
-        });
-        setJobs(filteredJobs);
+        setSearchTerm(searchTerm);
+        setLocation(location);
+        setDepartment(department);
     };
 
-    // const handleClick = () => {
-    //     navigate(`/careers#job-listings`);
-    // };
-
-    const scrollToTabs = () => {
-        if (jobListingsRef.current) {
-            jobListingsRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-            });
-        }
-    };
-
-    useEffect(() => {
-        console.log(location.hash); // Check hash
-        if (location.hash === '#job-listings' && jobListingsRef.current) {
-            jobListingsRef.current.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start', // Adjust as needed
-            });
-        }
-    }, [location.hash]);
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{error}</div>;
 
     return (
         <main className='dark:bg-zinc-800 dark:text-white'>
-            <HeroSection  />
+            <HeroSection />
             <JobSearch onSearch={handleSearch} />
             <section
                 id='job-listings'
-                ref={jobListingsRef}
-                className='job-listings '
+                ref={section3}
+                className='job-listings'
             >
-                <JobListings jobs={jobs} />
+                <JobListings jobs={filteredJobs} />
             </section>
             <LifeAtCompany />
+            <ScrollToTop />
         </main>
     );
 };

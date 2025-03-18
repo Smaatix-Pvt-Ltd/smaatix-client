@@ -9,7 +9,7 @@ const Header = () => {
         // { label: 'Corporate Gifting', href: '/services' },
         { label: 'Staffing Solutions', href: '#' },
         { label: 'Contact', href: '/contact' },
-        { label: 'About Us', href: '/' },
+        { label: 'About Us', href: '/about-us' },
         { label: 'Careers', href: '/careers' },
 
         // { label: 'External', href: 'https://example.com', isExternal: true },

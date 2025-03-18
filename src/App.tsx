@@ -10,6 +10,7 @@ import MainLayout from './layout/MainLayout';
 import Contact from './components/contact/Contact';
 import SoftwareSolutions from './components/softwareSolutions/SoftwareSolutions.js';
 import Careers from './pages/Careers.js';
+import AboutUs from './pages/About.js';
 
 const App = () => {
     return (
@@ -38,6 +39,10 @@ const App = () => {
                         <Route
                             path='/software-solutions'
                             element={<SoftwareSolutions />}
+                        />
+                        <Route
+                            path='/about-us'
+                            element={<AboutUs />}
                         />
                         <Route
                             path='/careers'

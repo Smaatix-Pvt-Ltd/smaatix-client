@@ -41,6 +41,7 @@ export const Stats = () => {
             title: 'Software Solutions',
             description:
                 'Find your niche requirement with our technology experts.',
+            path: '/software-solutions',
         },
         {
             icon: (
@@ -79,6 +80,7 @@ export const Stats = () => {
             title: 'Training',
             description:
                 'Upgrade / Upskill the latest technology with our experienced team.',
+            path: '/training',
         },
         {
             icon: (
@@ -104,6 +106,7 @@ export const Stats = () => {
             title: 'Staffing Solution',
             description:
                 'Fill your needs of experts with our talent hunting acquisition team.',
+            path: '/staffing-solutions',
         },
         {
             icon: (
@@ -122,9 +125,9 @@ export const Stats = () => {
                     <polyline points='22 4 12 14.01 9 11.01'></polyline>
                 </svg>
             ),
-            title: 'Finance Service',
-            description:
-                'Get one stop pack for your financial needs Personal / Corporate.',
+            title: 'Products',
+            description: 'Check out our products.',
+            path: '/products',
         },
         {
             icon: (
@@ -155,9 +158,10 @@ export const Stats = () => {
                     <polyline points='21 15 16 10 5 21'></polyline>
                 </svg>
             ),
-            title: 'Corporate Gifting',
+            title: 'Careers',
             description:
                 'Give your employees, partners and clients the gift of choice.',
+            path: '/careers',
         },
         {
             icon: (
@@ -189,9 +193,9 @@ export const Stats = () => {
                     <polyline points='10 9 9 9 8 9'></polyline>
                 </svg>
             ),
-            title: 'Digital Marketing',
-            description:
-                'Take an Expert Opinion about Your Digital Strategy. Let Our Creative Strategists Help You!',
+            title: 'About Us',
+            description: 'Take your time to know about our company.',
+            path: '/about-us',
         },
     ];
 
@@ -217,7 +221,7 @@ export const Stats = () => {
                     {services.map((service, index) => (
                         <div
                             key={index}
-                            className='relative bg-transparent  rounded-xl shadow-lg hover:shadow-xltransition-shadow  overflow-hidden group hover:-translate-x-1 hover:-translate-y-2 transition-transform duration-300'
+                            className='relative bg-purple-200 dark:bg-black/40 dark:border dark:border-zinc-600  rounded-xl shadow-lg hover:shadow-xltransition-shadow  overflow-hidden group hover:-translate-x-1 hover:-translate-y-2 transition-transform duration-300'
                         >
                             <div className='p-6 h-full flex flex-col'>
                                 {/* Icon with themed background */}
@@ -228,7 +232,7 @@ export const Stats = () => {
                                 </div>
 
                                 {/* Content */}
-                                <a href='#'>
+                                <a href={service.path}>
                                     <span className='absolute inset-0 cursor-pointer z-0'></span>
                                     <h3
                                         className={`text-xl font-semibold mb-3 group-hover:transition-colors duration-300`}
@@ -236,7 +240,7 @@ export const Stats = () => {
                                         {service.title}
                                     </h3>
                                 </a>
-                                <p className='text-gray-600 mb-6 flex-grow'>
+                                <p className='text-gray-600 dark:text-gray-100 mb-6 flex-grow'>
                                     {service.description}
                                 </p>
 
