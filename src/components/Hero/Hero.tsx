@@ -3,7 +3,7 @@ import { FaArrowDown, FaCog } from 'react-icons/fa';
 import { Button } from '../UI/button';
 const Hero = () => {
     return (
-        <div className='relative h-[700px] font-[montserrat]'>
+        <div className='relative h-[700px] font-[montserrat] dark:bg-zinc-800 dark:text-white'>
             {/* Background with gradient */}
             <div
                 className={`w-full h-full  flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-r dark:from-black dark:to-[#1b1b1b]/80`}
@@ -64,23 +64,22 @@ const Hero = () => {
             {/* Wave shape */}
             <div className='absolute bottom-0 left-0 w-full overflow-hidden leading-none'>
                 <svg
-                    className='relative block w-full h-24 transform rotate-180'
+                    className='relative block w-full h-24 transform rotate-180 fill-white dark:fill-zinc-800'
                     xmlns='http://www.w3.org/2000/svg'
                     viewBox='0 0 1200 120'
                     preserveAspectRatio='none'
                 >
                     <path
                         d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z'
-                        fill='#ffffff'
                         opacity='1'
                     ></path>
                 </svg>
             </div>
 
             {/* Circular decorative elements */}
-            <div className='absolute left-10 top-20 w-40 h-40  rounded-full opacity-20 blur-l bg-purple-600 dark:bg-zinc-300 blur-sm backdrop-blur-2xl  shadow-white-6xl '></div>
+            <div className='absolute left-10 top-20 w-96 h-96 rounded-full bg-gradient-to-br from-purple-800 to-purple-300 blur-3xl opacity-900 animate-blob animation-delay-2000'></div>
             <div
-                className={`absolute right-20 bottom-40 w-64 h-64  blur-sm rounded-full opacity-20 blur-l bg-purple-900`}
+                className={`absolute right-20 bottom-40 w-64 h-64   backdrop-blur-3xl ba rounded-full opacity-20 blur-sm animate-blob animation-delay-2000 bg-purple-900`}
             ></div>
         </div>
     );

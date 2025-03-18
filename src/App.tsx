@@ -8,12 +8,14 @@ import IndexPage from './components/landingpage/index.js';
 
 import MainLayout from './layout/MainLayout';
 import Contact from './components/contact/Contact';
+import SoftwareSolutions from './components/softwareSolutions/SoftwareSolutions.js';
+import Careers from './pages/Careers.js';
 
 const App = () => {
     return (
         <Router>
             <MainLayout>
-                <div className='dark:bg-[#212121] '>
+                <div className='dark:bg-zinc-800 '>
                     <Routes>
                         <Route
                             path='*'
@@ -26,14 +28,22 @@ const App = () => {
                         <Route
                             path='/index'
                             element={<IndexPage />}
-                        >
-                            {' '}
-                        </Route>
+                        />
+
                         <Route
                             path='/contact'
                             element={<Contact />}
                         />
-                        {/* Add the route for the IndexPage component */}
+
+                        <Route
+                            path='/software-solutions'
+                            element={<SoftwareSolutions />}
+                        />
+                        <Route
+                            path='/careers'
+                            element={<Careers />}
+                        />
+                        {/* Add the route for the  component */}
                     </Routes>
                 </div>
             </MainLayout>

@@ -10,7 +10,7 @@ import {
 } from 'react-icons/fa';
 const ContactCard = () => {
     return (
-        <div className='lg:w-[600px]dark:text-white dark:bg-zinc-800 rounded-lg dark:border dark:border-white'>
+        <div className='lg:w-[600px] h-[500px] dark:text-white dark:bg-zinc-800 rounded-lg dark:border dark:border-white'>
             <div className={`p-8 rounded-xl shadow-lg`}>
                 <h3 className={`text-2xl font-bold mb-6 }`}>
                     Contact Information

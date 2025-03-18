@@ -7,7 +7,7 @@ const Contact = () => {
         <section className='relative py-16 h-auto min-h-screen dark:text-white dark:bg-zinc-800 sm:h-fit'>
             {/* Background elements */}
             <div className='absolute inset-0 overflow-hidden pointer-events-none'>
-                <div className='absolute -left-10 w-32 h-32 md:w-64 md:h-64 rounded-full opacity-10 bg-purple-400 dark:bg-zinc-400 z-10'></div>
+                <div className='absolute top-40 w-48 h-48 rounded-full bg-gradient-to-br from-purple-800 to-purple-300 blur-xl opacity-900 animate-blob animation-delay-2000 z-10'></div>
             </div>
 
             <div className='container mx-auto px-4 relative z-10'>
@@ -23,7 +23,7 @@ const Contact = () => {
                 </div>
 
                 {/* Content Section */}
-                <div className='flex flex-col md:flex-row gap-4 items-center justify-center md:h-full'>
+                <div className='flex flex-col md:flex-row gap-4 items-center justify-center md:h-full max-md:w-full max-md:mx-auto'>
                     {/* Contact Form */}
                     <ContactForm />
 

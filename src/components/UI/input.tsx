@@ -178,7 +178,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                     );
                 default:
                     return (
-                        <div>
+                        <>
                             <label className='font-bold ml-3'>{label}</label>
                             <input
                                 type='text'
@@ -193,7 +193,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
                                     {error}
                                 </div>
                             )}
-                        </div>
+                        </>
                     );
             }
         };

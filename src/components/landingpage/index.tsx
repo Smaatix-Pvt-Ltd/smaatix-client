@@ -9,25 +9,16 @@ const Header = () => {
 
     return (
         <>
-            <section>
-                <Hero />
-            </section>
-            <section>
-                <Grow
-                    colorTheme={colorTheme}
-                    setColorTheme={setColorTheme}
-                />
-            </section>
-            <section>
-                <Stats
-                    colorTheme={colorTheme}
-                    setColorTheme={setColorTheme}
-                />
-            </section>
-            <section>
-                <Contact />
-            </section>
-            <section></section>
+            <Hero />
+
+            <Grow />
+
+            <Stats
+                colorTheme={colorTheme}
+                setColorTheme={setColorTheme}
+            />
+
+            <Contact />
         </>
     );
 };

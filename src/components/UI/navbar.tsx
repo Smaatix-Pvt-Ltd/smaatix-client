@@ -72,7 +72,7 @@ const Navbar: React.FC<NavbarProps> = ({
                 )}
             >
                 {/* Logo */}
-                <div className='font-bold text-xl text-gray-900 dark:text-gray-100'>
+                <div className='font-bold text-xl text-gray-900 dark:text-gray-100 h-14'>
                     {logo || 'Your Brand'}
                 </div>
 

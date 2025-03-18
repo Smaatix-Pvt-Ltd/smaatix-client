@@ -6,12 +6,22 @@ const ContactForm = () => {
     return (
         <form
             // onSubmit={handleSubmit}
-            className={` h-full lg:w-7/12 p-11 rounded-xl shadow-lg border bg-white dark:bg-zinc-800 dark:text-white`}
+            className={` h-full max-h-[500px] lg:w-7/12 p-11 flex flex-col flex-nowrap rounded-xl gap-1 items-start justify-startshadow-lg border bg-white dark:bg-zinc-800 dark:text-white`}
         >
             <Input
                 label='Your Name'
                 type='text'
                 id='name'
+                variant={'default'}
+                placeholder='Enter your name'
+                className='w-full h-12 mb-4'
+                required={true}
+            />
+            <span className='bar block relative w-full h-4'></span>
+            <Input
+                label='Your Phone Number'
+                type='tel'
+                id='phone'
                 variant={'default'}
                 placeholder='Enter your name'
                 className='w-full h-12 mb-4'
@@ -31,7 +41,7 @@ const ContactForm = () => {
             <div className='mb-6'>
                 <label
                     htmlFor='message'
-                    className='block font-bold mb-2 ml-3 text-md'
+                    className='block font-bold  ml-3 text-md'
                 >
                     Your Message
                 </label>
