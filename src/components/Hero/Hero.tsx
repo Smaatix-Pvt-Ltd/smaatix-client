@@ -6,7 +6,7 @@ const Hero = () => {
         <div className='relative h-[700px] font-[montserrat] dark:bg-zinc-800 dark:text-white'>
             {/* Background with gradient */}
             <div
-                className={`w-full h-full  flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-r dark:from-black dark:to-[#1b1b1b]/80`}
+                className={`w-full h-full  flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-purple-400 dark:bg-gradient-to-r dark:from-black dark:to-[#1b1b1b]/80`}
             >
                 <div className='container mx-auto px-6 flex flex-col md:flex-row justify-between items-center z-10 relative'>
                     {/* Left Column */}

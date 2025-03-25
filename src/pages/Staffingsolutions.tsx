@@ -97,7 +97,7 @@ const Staffingsolutions = () => {
             <div className='relative h-[400px] font-[montserrat] '>
                 {/* Background with gradient */}
                 <div
-                    className={`w-full h-full flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-b dark:from-black dark:to-[#212121]`}
+                    className={`w-full h-full flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-purple-400 dark:bg-gradient-to-b dark:from-black dark:to-[#212121]`}
                 >
                     <div className='container mx-auto px-6 flex flex-col justify-center items-center z-10 relative'>
                         <div className='text-center'>

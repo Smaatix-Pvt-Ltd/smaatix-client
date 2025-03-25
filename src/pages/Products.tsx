@@ -85,7 +85,7 @@ const Products: React.FC = () => {
     return (
         <div className='font-sans text-gray-800'>
             {/* Hero Section */}
-            <section className='bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-b dark:from-black dark:to-[#212121] text-white py-20'>
+            <section className='bg-gradient-to-r from-purple-900 to-purple-400 dark:bg-gradient-to-b dark:from-black dark:to-[#212121] text-white py-20'>
                 <div className='container mx-auto px-4'>
                     <div className='max-w-3xl mx-auto text-center'>
                         <h1 className='text-4xl md:text-5xl font-bold mb-6'>

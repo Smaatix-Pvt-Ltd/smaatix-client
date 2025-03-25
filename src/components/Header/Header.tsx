@@ -37,7 +37,7 @@ const Header = () => {
 
     return (
         <>
-            <div className='sticky  top-0 z-50 bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-r dark:from-black dark:to-[#1b1b1b] flex justify-evenly  shadow-lg drop-shadow-2xl dark:border-b-[1px] dark:border-zinc-300'>
+            <div className='sticky  top-0 z-50 bg-gradient-to-r from-purple-900 to-purple-400 dark:bg-gradient-to-r dark:from-black dark:to-[#1b1b1b] flex justify-evenly  shadow-lg drop-shadow-2xl dark:border-b-[1px] dark:border-zinc-300'>
                 <div className='w-full lg:pr-10 max-md:pr-2 max-md:ml-10'>
                     <Navbar
                         logo={

@@ -21,21 +21,6 @@ const Careers = () => {
     const [department, setDepartment] = useState('');
 
     const originalJobs = useRef<Job[]>([]);
-    const section3 = useRef<HTMLElement | null>(null);
-
-    // useEffect(() => {
-    //     const hash = window.location.hash;
-    //     if (hash === '#job-listings' && section3.current) {
-    //         setTimeout(() => {
-    //             section3.current?.scrollIntoView({
-    //                 behavior: 'smooth',
-    //                 block: 'start',
-    //             });
-    //         }, 100);
-    //     }
-    // }, []);
-
-    window.scrollTo({ top: 0, behavior: 'smooth' }); //
 
     useEffect(() => {
         const fetchJobs = async () => {
@@ -92,16 +77,6 @@ const Careers = () => {
         );
     }, [jobs, searchTerm, location, department]);
 
-    const scrollHandler = () => {
-        console.log(section3.current);
-        if (section3.current) {
-            window.scrollTo({
-                top: section3.current.offsetTop,
-                behavior: 'smooth',
-            });
-        }
-    };
-
     const handleSearch = (
         searchTerm: string,
         location: string,
@@ -119,11 +94,7 @@ const Careers = () => {
         <main className='dark:bg-zinc-800 dark:text-white'>
             <HeroSection />
             <JobSearch onSearch={handleSearch} />
-            <section
-                id='job-listings'
-                ref={section3}
-                className='job-listings'
-            >
+            <section id='job-listings'>
                 <JobListings jobs={filteredJobs} />
             </section>
             <LifeAtCompany />

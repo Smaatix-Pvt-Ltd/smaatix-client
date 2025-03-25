@@ -1,26 +1,26 @@
-import React, { useState, useEffect } from 'react';
-import { Button } from '../UI/button';
-
 const HeroSection = () => {
     return (
-        <section className='h-screen dark:text-white flex items-center justify-center text-center bg-gradient-to-r from-purple-800 dark:from-black to-slate-100 dark:to-zinc-800 '>
-            <div className='absolute top-60 w-96 h-96 rounded-full bg-gradient-to-br from-purple-900 to-purple-700  dark:from-purple-800 dark:to-purple-300 blur-3xl opacity-900 animate-blob animation-delay-2000 '></div>
+        <section
+            className='relative pt-0 px-5 min-h-screen text-center   bg-gradient-to-r from-purple-800 to-purple-400 dark:bg-gradient-to-r
+            dark:from-black dark:to-zinc-900 overflow-hidden flex items-center justify-center'
+        >
+            <div className='absolute  w-96 h-96 rounded-full bg-gradient-to-br from-purple-900 to-purple-700  dark:from-purple-800 dark:to-purple-300 blur-3xl opacity-900 animate-blob animation-delay-2000 z-0'></div>
             <div className='hero-content z-10'>
-                <h1 className='text-5xl max-md:text-3xl font-bold mb-5 z-50'>
-                    Join Our Team and Shape the Future of Technology
+                <h1 className='text-5xl font-bold mb-5 animate-fade-in'>
+                    Join Our Team and shape the future of Technology
                 </h1>
-                <p className='text-lg md:text-xl mb-8 text-gray-100'>
-                    Explore exciting career opportunities at Smaatix
+                <p className='text-2xl mb-8 animate-fade-in'>
+                    Explore exciting career opportunities with Smaatix
                 </p>
-
-                <Button
-                    variant={'destructive'}
-                    size={'lg'}
-                    className='rounded-full hover:bg-red-600 z-50 '
-                    // onClick={handleClick}
+                <a
+                    href='#job-listings'
+                    className='bg-purple-800 text-white py-4 px-8 rounded-full text-xl transition-colors hover:bg-indigo-800 animate-fade-in z-60'
+                    onClick={() => {
+                        console.log('View Open Positions clicked');
+                    }}
                 >
-                    View Open Positions
-                </Button>
+                    View Open Positions{' '}
+                </a>
             </div>
         </section>
     );
