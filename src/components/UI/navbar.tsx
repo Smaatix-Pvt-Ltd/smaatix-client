@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'; // Or your preferred routing library
 import { cn } from '../../lib/utils'; // Shadcn-like utility for conditional classes
 import { AiOutlineBars, AiOutlineClose } from 'react-icons/ai';
 import ThemeToggle from './ThemeToggle';
-
+import { Button } from './button';
 interface NavItem {
     label: string;
     href: string;
@@ -67,12 +67,12 @@ const Navbar: React.FC<NavbarProps> = ({
         >
             <div
                 className={cn(
-                    'container mx-auto px-4 flex items-center justify-between',
+                    'container mx-auto   flex items-center justify-between',
                     containerClassName
                 )}
             >
                 {/* Logo */}
-                <div className='font-bold text-xl text-gray-900 dark:text-gray-100 h-14'>
+                <div className='font-bold text-xl text-gray-900 dark:text-gray-100 h-14 '>
                     {logo || 'Your Brand'}
                 </div>
 
@@ -102,8 +102,10 @@ const Navbar: React.FC<NavbarProps> = ({
                         </Link>
                     ))}
                 </nav>
-                <div className='flex items-center space-x-4'>
+
+                <div className='flex items-center justify-end space-x-4'>
                     <ThemeToggle />
+
                     {/* Mobile Menu Button */}
                     <button
                         className={cn(

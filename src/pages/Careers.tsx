@@ -35,6 +35,8 @@ const Careers = () => {
     //     }
     // }, []);
 
+    window.scrollTo({ top: 0, behavior: 'smooth' }); //
+
     useEffect(() => {
         const fetchJobs = async () => {
             try {

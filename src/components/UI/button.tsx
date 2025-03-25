@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
-import { cn } from "../../lib/util";
+import { cn } from '../../lib/util';
 
 const buttonVariants = cva(
     "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-[color,box-shadow] disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
@@ -21,7 +21,7 @@ const buttonVariants = cva(
                 link: 'text-primary cursor-pointer underline-offset-4 hover:underline hover:',
                 gradient:
                     'w-fit flex items-center justify-center px-2.5 py-3.5 cursor-pointer gap-1 font-bold rounded-3xl text-white shadow-md bg-[linear-gradient(15deg,#880088,#aa2068,#cc3f47,#de6f3d,#f09f33,#de6f3d,#cc3f47,#aa2068,#880088)] bg-[length:300%] bg-left hover:bg-right transition-all duration-300 ',
-                slide: 'bg-white text-center cursor-pointer border-2 border-green-400 w-fit rounded-[100] h-10 relative text-black text-xl font-semibold group flex items-center overflow-hidden',
+                slide: 'bg-white text-center cursor-pointer border border-gray-700 w-fit rounded-[100] h-10 relative text-black text-xl font-semibold group flex items-center overflow-hidden',
             },
             size: {
                 default: 'h-10 px-4 py-2',
@@ -58,7 +58,7 @@ function Button({
         if (variant === 'slide') {
             return (
                 <>
-                    <span className='bg-green-400 rounded-2xl h-full w-1/4 flex items-center justify-center absolute left-0 top-0 group-hover:w-full z-10 duration-500'>
+                    <span className=' bg-gray-700 rounded-[100] h-full w-1/4 flex items-center justify-center absolute left-0 top-0 group-hover:w-full z-10 duration-500'>
                         {slideIcon}
                     </span>
                     <p className='translate-x-2 p-4'>{props.children}</p>{' '}

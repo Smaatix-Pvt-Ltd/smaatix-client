@@ -3,39 +3,53 @@ import {
     Routes,
     Route,
     Navigate,
+    useLocation,
 } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import IndexPage from './components/landingpage/index.js';
-
 import MainLayout from './layout/MainLayout';
 import Contact from './components/contact/Contact';
 import SoftwareSolutions from './components/softwareSolutions/SoftwareSolutions.js';
 import Careers from './pages/Careers.js';
 import AboutUs from './pages/About.js';
+import Training from './pages/Training.js';
+import Products from './pages/Products.js';
+import Staffingsolutions from './pages/Staffingsolutions.js';
 
 const App = () => {
+    const ScrollToTop = () => {
+        const { pathname } = useLocation();
+
+        useEffect(() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' }); // Instantly scrolls to the top
+        }, [pathname]); // Runs every time the path changes
+
+        return null;
+    };
+
     return (
-        <Router>
-            <MainLayout>
-                <div className='dark:bg-zinc-800 '>
-                    <Routes>
+        <div className='dark:bg-zinc-900 dark:text-white'>
+            <Router>
+                <ScrollToTop />
+
+                {/* This makes it scroll to top automatically */}
+                <Routes>
+                    <Route
+                        path='/'
+                        element={<MainLayout />}
+                    >
                         <Route
-                            path='*'
-                            element={<Navigate to='/index' />}
-                        />
-                        <Route
-                            path='*'
+                            index
                             element={<Navigate to='/index' />}
                         />
                         <Route
                             path='/index'
                             element={<IndexPage />}
                         />
-
                         <Route
                             path='/contact'
                             element={<Contact />}
                         />
-
                         <Route
                             path='/software-solutions'
                             element={<SoftwareSolutions />}
@@ -48,11 +62,26 @@ const App = () => {
                             path='/careers'
                             element={<Careers />}
                         />
-                        {/* Add the route for the  component */}
-                    </Routes>
-                </div>
-            </MainLayout>
-        </Router>
+                        <Route
+                            path='/training'
+                            element={<Training />}
+                        />
+                        <Route
+                            path='/products'
+                            element={<Products />}
+                        />
+                        <Route
+                            path='/staffing-solutions'
+                            element={<Staffingsolutions />}
+                        />
+                        <Route
+                            path='*'
+                            element={<Navigate to='/index' />}
+                        />
+                    </Route>
+                </Routes>
+            </Router>
+        </div>
     );
 };
 

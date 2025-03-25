@@ -1,3 +1,5 @@
+const { transform } = require('framer-motion');
+
 module.exports = {
     darkMode: 'class',
     content: ['./index.html', './src/**/*.{js,jsx,ts,tsx}'],
@@ -34,14 +36,21 @@ module.exports = {
                     'serif',
                 ],
             },
-            animation: {
-                'fade-in': 'fadeIn 2s ease-in-out',
-            },
             keyframes: {
                 fadeIn: {
                     '0%': { opacity: '0' },
                     '100%': { opacity: '1' },
                 },
+                roll: {
+                    '0%, 100%': { transform: 'translateX(0) rotate(0deg)' },
+                    '50%': {
+                        transform: 'translateX(0) translateY(0) rotate(180deg)',
+                    },
+                },
+            },
+            animation: {
+                'fade-in': 'fadeIn 2s ease-in-out',
+                roll: 'roll 3s ease-in-out infinite',
             },
         },
     },
