@@ -69,6 +69,7 @@ const ThreeDCard: React.FC<CardProps> = ({ project }) => {
               src={project.image} 
               className="w-full h-[250px] md:h-[300px] object-cover transition-transform duration-300 hover:scale-105 p-4 rounded-3xl rounded-b-3xl" 
               alt={project.name} 
+              loading="lazy"
             />
 
         </a>

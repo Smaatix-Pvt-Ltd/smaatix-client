@@ -10,7 +10,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
   const [domains, setDomains] = useState<string[]>([]);
 
   useEffect(() => {
-    fetch("http://192.168.1.168:8080/api/coursesentity/domains")
+    fetch("http://192.168.1.202:8080/api/coursesentity/domains")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data) && data.length > 0) {
