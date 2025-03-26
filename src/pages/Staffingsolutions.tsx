@@ -6,9 +6,7 @@ import {
     FileText,
     UserCheck,
     Layers,
-    ArrowDownLeft,
 } from 'react-feather';
-import { Button } from '../components/UI/button';
 
 const Staffingsolutions = () => {
     const solutions = [
@@ -158,7 +156,7 @@ const Staffingsolutions = () => {
             <div className='relative min-h-[700px]  font-[montserrat] pt-20 '>
                 {/* Background with gradient */}
                 <div className='w-full h-full flex justify-center items-center  py-10 overflow-hidden'>
-                    <div className='max-w-6xl w-full px-4 relative z-10'>
+                    <div className='max-w-[1040px] w-full px-4 relative z-10'>
                         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6'>
                             {solutions.map((solution, index) => (
                                 <Card

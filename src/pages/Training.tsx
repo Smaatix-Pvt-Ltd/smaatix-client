@@ -11,7 +11,7 @@ const Training = () => {
     const [course, setCourses] = useState<string[]>([]);
     const [courseSelected, setCourse] = useState('');
     const [url, setUrl] = useState('');
-    const [isLogin, setLogin] = useState(false)
+    const [isLogin, setLogin] = useState(true)
     const { loginActive, signupActive, setLoginActive, setSignupActive } = useAuth();
     
 
@@ -126,7 +126,7 @@ const Training = () => {
                         <div className='flex flex-wrap gap-4'>
                             {isLoading
                                 ? Array(5).fill(null).map((_, i) => (
-                                    <div key={i} className='px-4 py-2 w-32 h-10 bg-gray-300 dark:bg-gray-700 rounded-full animate-pulse'></div>
+                                    <div key={i} className='px-4 py-2 w-32 h-10 bg-gray-300 dark:bg-gray-700 rounded-full animate-pulse'/>
                                 ))
                                 : course.map((item, index) => (
                                     <button

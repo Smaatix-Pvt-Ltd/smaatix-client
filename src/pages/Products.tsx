@@ -267,7 +267,7 @@ const Products: React.FC = () => {
                         </p>
                     </div>
 
-                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto'>
+                    <div className='grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[1040px] mx-auto'>
                         <Card
                             logo={
                                 <FaCode className='text-purple-600 text-3xl' />

@@ -15,7 +15,7 @@ const CardLinks = ({
 }) => {
     return (
         <div
-            className='relative bg-white p-10 py-14 max-h-[250px] flex flex-col gap-4 bg-white/50 max-md:w-2/3 max-md:mx-auto
+            className='relative bg-white px-5 p-10 py-14 max-h-[250px] flex flex-col gap-4 bg-white/50 max-md:w-2/3 max-md:mx-auto
         dark:bg-black/50 rounded-xl shadow-lg rounded-t-xl rounded-bl-[50px] border border-black hover:shadow-xltransition-shadow  overflow-hidden group hover:-translate-x-1 hover:-translate-y-2 transition-transform duration-300'
         >
             <div className='bg-slate-500  w-fit rounded-xl dark:bg-zinc-800  p-2 border-[1px] border-slate-600 dark:border-zinc-900'>

@@ -50,7 +50,7 @@ const ThreeDCard: React.FC<CardProps> = ({ project }) => {
 
   return (
     <motion.article
-      className="w-full h-[500px] max-w-sm bg-white shadow-xl shadow-gray-500/60 rounded-lg hover:shadow-2xl hover:shadow-purple-500/60 overflow-hidden cursor-pointer hover:shadow-3xl hover:shadow-purple-500/70 dark:bg-[#1f2835]"
+      className="w-full h-[450px] max-w-sm bg-white shadow-xl shadow-gray-500/60 rounded-2xl hover:shadow-2xl hover:shadow-purple-500/60 overflow-hidden cursor-pointer hover:shadow-3xl hover:shadow-purple-500/70 dark:bg-[#1f2835]"
       ref={cardRef}
       onMouseMove={handleHover}
       onMouseLeave={resetStyles}
