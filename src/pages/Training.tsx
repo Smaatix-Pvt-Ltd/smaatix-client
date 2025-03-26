@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import Videogallery from '../components/Training/Videogallery';
 import Navbar from '../components/Training/Navbar';
 import { Folder } from 'lucide-react';
+import { useAuth } from "../layout/AuthContext";
+
 
 const Training = () => {
     const [activeTab, setActiveTab] = useState<string>('');
@@ -9,10 +11,13 @@ const Training = () => {
     const [course, setCourses] = useState<string[]>([]);
     const [courseSelected, setCourse] = useState('');
     const [url, setUrl] = useState('');
+    const [isLogin, setLogin] = useState(false)
+    const { loginActive, signupActive, setLoginActive, setSignupActive } = useAuth();
     
 
     useEffect(() => {
         if (!activeTab) return;
+        
 
         // Check Local Storage for cached data
         const cachedData = localStorage.getItem(`courses_${activeTab}`);
@@ -23,6 +28,7 @@ const Training = () => {
         }
 
         setIsLoading(true);
+        
         
         fetch(`http://192.168.1.202:8080/api/coursesentity/${activeTab}`, {
             method: 'GET',
@@ -50,6 +56,7 @@ const Training = () => {
                         if (res.headers.get('ETag')) {
                             localStorage.setItem(`etag_${activeTab}`, res.headers.get('ETag') || '');
                         }
+                        
                     }
                 });
             })
@@ -60,83 +67,107 @@ const Training = () => {
 
     }, [activeTab]);
 
+    useEffect(() => {
+        if (!isLogin) {
+            handleLoginClick();
+            console.log('Login Active:', loginActive);
+        }
+    },[url]);
+
     const handleCourseSelector = (courseName: string) => {
         setCourse(courseName);
     };
 
+    const handleLoginClick = () => {
+        setLoginActive(true);
+        setSignupActive(false);
+    };
+
+    
+
+    
+
     return (
-        <div className='min-h-screen bg-white dark:bg-[#212121] font-[montserrat] relative'>
-            <div className='relative h-[400px] font-[montserrat]'>
-                <div className={`w-full h-full flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-b dark:from-black dark:to-[#212121]`}>
-                    <div className='container mx-auto px-6 flex flex-col justify-center items-center z-10 relative'>
-                        <div className='text-center'>
-                            <h3 className='text-xl font-medium mb-4 text-gray-100 tracking-wide'>
-                                Empowering Talent with Industry-Ready Training Solutions.
-                            </h3>
-                            <h1 className='text-6xl md:text-5xl font-bold mb-6 leading-tight'>
-                                Training Solutions
-                            </h1>
+        <div className="relative">
+            {!isLogin && (
+                <div className="absolute inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center z-10">
+                </div>
+            )}
+    
+            <div className={`min-h-screen bg-white dark:bg-[#212121] font-[montserrat] relative ${!isLogin ? 'pointer-events-none opacity-50' : ''}`}>
+                <div className='relative h-[400px] font-[montserrat]'>
+                    <div className={`w-full h-full flex flex-col justify-center items-center text-white bg-gradient-to-r from-purple-900 to-zinc-100 dark:bg-gradient-to-b dark:from-black dark:to-[#212121]`}>
+                        <div className='container mx-auto px-6 flex flex-col justify-center items-center z-10 relative'>
+                            <div className='text-center'>
+                                <h3 className='text-xl font-medium mb-4 text-gray-100 tracking-wide'>
+                                    Empowering Talent with Industry-Ready Training Solutions.
+                                </h3>
+                                <h1 className='text-6xl md:text-5xl font-bold mb-6 leading-tight'>
+                                    Training Solutions
+                                </h1>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div className='container mx-auto px-4 py-8'>
-                <div className='mb-8'>
-                    <h2 className='font-bold text-2xl text-gray-800 dark:text-gray-200 mb-4'>
-                        Master Every Skill in One Destination
-                    </h2>
-                    <p className='text-gray-600 dark:text-gray-300 max-w-3xl'>
-                        Explore our comprehensive library of training materials designed to help you excel in your professional journey.
-                    </p>
-                </div>
-
-                <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
-
-                <div className='p-6'>
-                    <div className='flex flex-wrap gap-4'>
-                        {isLoading
-                            ? Array(5).fill(null).map((_, i) => (
-                                <div key={i} className='px-4 py-2 w-32 h-10 bg-gray-300 dark:bg-gray-700 rounded-full animate-pulse'></div>
-                            ))
-                            : course.map((item, index) => (
-                                <button
-                                    key={index}
-                                    onClick={() => handleCourseSelector(item)}
-                                    className={`flex items-center px-4 py-2 rounded-full transition-all duration-200 ${courseSelected === item ? 'bg-purple-600 dark:bg-purple-700 shadow-lg' : 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 shadow-md hover:shadow-lg'}`}
-                                >
-                                    <div className={`text-md font-medium ${courseSelected === item ? 'text-white dark:text-white font-bold' : 'text-gray-800 dark:text-gray-200'}`}>{item}</div>
-                                </button>
-                            ))}
-                    </div>
-
-                    {activeTab && course.length === 0 && (
-                        <div className='flex flex-col items-center justify-center text-center h-64'>
-                            <Folder className='h-8 w-8 text-gray-400' />
-                            <p className='text-gray-500 text-lg font-medium'>
-                                The "{activeTab}" folder is empty.
-                            </p>
-                        </div>
-                    )}
-                </div>
-
-                <div className='mt-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden'>
-                    <div className='p-6 border-b border-gray-200 dark:border-gray-700'>
-                        <h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
-                            Featured Video Tutorials
+    
+                <div className='container mx-auto px-4 py-8'>
+                    <div className='mb-8'>
+                        <h2 className='font-bold text-2xl text-gray-800 dark:text-gray-200 mb-4'>
+                            Master Every Skill in One Destination
                         </h2>
+                        <p className='text-gray-600 dark:text-gray-300 max-w-3xl'>
+                            Explore our comprehensive library of training materials designed to help you excel in your professional journey.
+                        </p>
                     </div>
+    
+                    <Navbar activeTab={activeTab} onTabChange={setActiveTab} />
+    
                     <div className='p-6'>
-                        <Videogallery activeTab={activeTab} courseSelected={courseSelected} setUrl={setUrl} />
+                        <div className='flex flex-wrap gap-4'>
+                            {isLoading
+                                ? Array(5).fill(null).map((_, i) => (
+                                    <div key={i} className='px-4 py-2 w-32 h-10 bg-gray-300 dark:bg-gray-700 rounded-full animate-pulse'></div>
+                                ))
+                                : course.map((item, index) => (
+                                    <button
+                                        key={index}
+                                        onClick={() => handleCourseSelector(item)}
+                                        className={`flex items-center px-4 py-2 rounded-full transition-all duration-200 ${courseSelected === item ? 'bg-purple-600 dark:bg-purple-700 shadow-lg' : 'bg-gray-200 hover:bg-gray-300 dark:bg-gray-700 dark:hover:bg-gray-600 shadow-md hover:shadow-lg'}`}
+                                    >
+                                        <div className={`text-md font-medium ${courseSelected === item ? 'text-white dark:text-white font-bold' : 'text-gray-800 dark:text-gray-200'}`}>{item}</div>
+                                    </button>
+                                ))}
+                        </div>
+    
+                        {activeTab && course.length === 0 && (
+                            <div className='flex flex-col items-center justify-center text-center h-64'>
+                                <Folder className='h-8 w-8 text-gray-400' />
+                                <p className='text-gray-500 text-lg font-medium'>
+                                    The "{activeTab}" folder is empty.
+                                </p>
+                            </div>
+                        )}
                     </div>
-                </div>
-
-                <div className='flex justify-center items-center p-8'>
-                     {url && <video controls  src={url} className='w-full h-auto ' style={{ maxHeight: '800px' }}></video>}
+    
+                    <div className='mt-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden'>
+                        <div className='p-6 border-b border-gray-200 dark:border-gray-700'>
+                            <h2 className='text-xl font-semibold text-gray-800 dark:text-gray-200'>
+                                Featured Video Tutorials
+                            </h2>
+                        </div>
+                        <div className='p-6'>
+                            <Videogallery activeTab={activeTab} courseSelected={courseSelected} setUrl={setUrl} />
+                        </div>
+                    </div>
+    
+                    <div className='flex justify-center items-center p-8'>
+                         {url && <video controls src={url} className='w-full h-auto' style={{ maxHeight: '800px' }}></video>}
+                    </div>
                 </div>
             </div>
         </div>
     );
+    
 };
 
 export default Training;
