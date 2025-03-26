@@ -53,25 +53,25 @@ const ContactCard = () => {
                     <div className='flex space-x-4'>
                         <a
                             href='#'
-                            className={`w-10 h-10 rounded-full  flex items-center justify-center text-white hover:opacity-90 transition-opacity`}
+                            className={`w-10 h-10 rounded-full  flex items-center justify-center text-gray-600 hover:opacity-90 transition-opacity`}
                         >
                             <FaTwitter />
                         </a>
                         <a
                             href='#'
-                            className={`w-10 h-10 rounded-full  flex items-center justify-center text-white hover:opacity-90 transition-opacity`}
+                            className={`w-10 h-10 rounded-full  flex items-center justify-center text-gray-600 hover:opacity-90 transition-opacity`}
                         >
                             <FaFacebook />
                         </a>
                         <a
                             href='#'
-                            className={`w-10 h-10 rounded-full flex items-center justify-center text-white hover:opacity-90 transition-opacity`}
+                            className={`w-10 h-10 rounded-full flex items-center justify-center text-gray-600 hover:opacity-90 transition-opacity`}
                         >
                             <FaLinkedin />
                         </a>
                         <a
                             href='#'
-                            className={`w-10 h-10 rounded-full  flex items-center justify-center text-white hover:opacity-90 transition-opacity`}
+                            className={`w-10 h-10 rounded-full  flex items-center justify-center text-gray-600 hover:opacity-90 transition-opacity`}
                         >
                             <FaInstagram />
                         </a>

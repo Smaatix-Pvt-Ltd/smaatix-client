@@ -5,7 +5,8 @@ import {
     Navigate,
     useLocation,
 } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { AuthProvider } from "./layout/AuthContext";
 import IndexPage from './components/landingpage/index.js';
 import MainLayout from './layout/MainLayout';
 import Contact from './components/contact/Contact';
@@ -28,59 +29,61 @@ const App = () => {
     };
 
     return (
-        <div className='dark:bg-zinc-900 dark:text-white sm:max-w-screen max-sm:overflow-hidden'>
-            <Router>
-                <ScrollToTop />
+        <div className='dark:bg-zinc-900 dark:text-white'>
+            <AuthProvider>                
+                <Router>
+                    <ScrollToTop />
 
-                {/* This makes it scroll to top automatically */}
-                <Routes>
-                    <Route
-                        path='/'
-                        element={<MainLayout />}
-                    >
+                    {/* This makes it scroll to top automatically */}
+                    <Routes>
                         <Route
-                            index
-                            element={<Navigate to='/index' />}
-                        />
-                        <Route
-                            path='/index'
-                            element={<IndexPage />}
-                        />
-                        <Route
-                            path='/contact'
-                            element={<Contact />}
-                        />
-                        <Route
-                            path='/software-solutions'
-                            element={<SoftwareSolutions />}
-                        />
-                        <Route
-                            path='/about-us'
-                            element={<AboutUs />}
-                        />
-                        <Route
-                            path='/careers'
-                            element={<Careers />}
-                        />
-                        <Route
-                            path='/training'
-                            element={<Training />}
-                        />
-                        <Route
-                            path='/products'
-                            element={<Products />}
-                        />
-                        <Route
-                            path='/staffing-solutions'
-                            element={<Staffingsolutions />}
-                        />
-                        <Route
-                            path='*'
-                            element={<Navigate to='/index' />}
-                        />
-                    </Route>
-                </Routes>
-            </Router>
+                            path='/'
+                            element={<MainLayout />}
+                        >
+                            <Route
+                                index
+                                element={<Navigate to='/index' />}
+                            />
+                            <Route
+                                path='/index'
+                                element={<IndexPage />}
+                            />
+                            <Route
+                                path='/contact'
+                                element={<Contact />}
+                            />
+                            <Route
+                                path='/software-solutions'
+                                element={<SoftwareSolutions />}
+                            />
+                            <Route
+                                path='/about-us'
+                                element={<AboutUs />}
+                            />
+                            <Route
+                                path='/careers'
+                                element={<Careers />}
+                            />
+                            <Route
+                                path='/training'
+                                element={<Training />}
+                            />
+                            <Route
+                                path='/products'
+                                element={<Products />}
+                            />
+                            <Route
+                                path='/staffing-solutions'
+                                element={<Staffingsolutions />}
+                            />
+                            <Route
+                                path='*'
+                                element={<Navigate to='/index' />}
+                            />
+                        </Route>
+                    </Routes>
+                </Router>
+            </AuthProvider>
         </div>
     );
 };

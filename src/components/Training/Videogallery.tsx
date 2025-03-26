@@ -1,48 +1,54 @@
 import React, { useEffect, useState } from 'react';
 
-const VideoGallery = ({ activeTab, courseSelected, setUrl }) => {
-  const [videos, setVideos] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+interface Video {
+  videourl: string;
+  imgurl: string;
+  title: string;
+  description: string;
+}
 
-  const [data, setData] = useState<any>(null);
+interface VideoGalleryProps {
+  activeTab: string;
+  courseSelected: string;
+  setUrl: (url: string) => void;
+}
+
+const VideoGallery: React.FC<VideoGalleryProps> = ({ activeTab, courseSelected, setUrl }) => {
+  const [videos, setVideos] = useState<Video[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState<Record<string, any>>({});
 
   useEffect(() => {
     if (activeTab && courseSelected) {
-      fetch(`http://192.168.1.168:8080/api/coursesentity/${activeTab}/${courseSelected}`)
+      fetch(`http://192.168.1.202:8080/api/coursesentity/${activeTab}/${courseSelected}`)
         .then((res) => res.json())
         .then((responseData) => {
-          setData(responseData);
+          setData(responseData || {});
         })
-        .catch((err) => console.error("Error fetching data:", err));
+        .catch((err) => {
+          console.error("Error fetching data:", err);
+          setData({});
+        });
     }
   }, [activeTab, courseSelected]);
 
-  console.log(data);
-  
-
-
   useEffect(() => {
     setIsLoading(true);
-    // Simulate loading delay
     setTimeout(() => {
-      if (data[activeTab] && data[activeTab][courseSelected]) {
-        setVideos(data[activeTab][courseSelected]);
-        console.log("videos",videos);
+      if (data && data[activeTab] && data[activeTab][courseSelected]) {
+        setVideos(data[activeTab][courseSelected] || []);
       } else {
         setVideos([]);
       }
       setIsLoading(false);
-    }, 1000); // Simulate 1-second loading delay
+    }, 1000);
   }, [activeTab, courseSelected, data]);
-
-  
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-6 dark:text-white">
         {courseSelected} Videos
       </h2>
-
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {Array(4)
@@ -77,6 +83,7 @@ const VideoGallery = ({ activeTab, courseSelected, setUrl }) => {
             >
               <img
                 src={video.imgurl}
+                loading="lazy" 
                 alt={video.title}
                 className="w-full h-48 object-cover rounded-t-lg"
               />
@@ -87,7 +94,6 @@ const VideoGallery = ({ activeTab, courseSelected, setUrl }) => {
                 <p className="text-gray-600 dark:text-gray-400 mb-3">
                   {video.description}
                 </p>
-                
               </div>
             </div>
           ))}

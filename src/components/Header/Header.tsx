@@ -1,11 +1,13 @@
-import { useState } from 'react';
 import { Button } from '../UI/button';
 import Navbar from '../UI/navbar';
 import LoginPage from '../Login/Login';
 import SignUp from '../Login/SignUp';
-// import ThemeToggle from '../UI/ThemeToggle';
+import { useAuth } from "../../layout/AuthContext";
+
 
 const Header = () => {
+
+    const { loginActive, signupActive, setLoginActive, setSignupActive } = useAuth();
     const NavItems = [
         { label: 'Products', href: '/products' },
         { label: 'Training', href: '/training' },
@@ -18,11 +20,10 @@ const Header = () => {
 
         // { label: 'External', href: 'https://example.com', isExternal: true },
     ];
-    const [LoginActive, setLoginActive] = useState(false);
-    const [signupActive, setSignupActive] = useState(false);
+    
 
     const handleLoginClick = () => {
-        setLoginActive(!LoginActive);
+        setLoginActive(!loginActive);
         setSignupActive(false);
     };
 
@@ -68,8 +69,8 @@ const Header = () => {
                 </Button>
             </div>
 
-            {LoginActive && (
-                <div className='inset-0 fixed bg-transparent  flex justify-center items-center z-20 max-sm:mr-1'>
+            {loginActive && (
+                <div className='inset-0 fixed bg-transparent  flex justify-center items-center z-20'>
                     <div
                         className='absolute inset-0 w-screen h-screen bg-black/10  z-30'
                         onClick={handleLoginClose}
