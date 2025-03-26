@@ -67,7 +67,7 @@ const Navbar: React.FC<NavbarProps> = ({
         >
             <div
                 className={cn(
-                    'container mx-auto   flex items-center justify-between',
+                    'container mx-auto  flex items-center justify-between',
                     containerClassName
                 )}
             >
@@ -127,7 +127,7 @@ const Navbar: React.FC<NavbarProps> = ({
             {/* Mobile Menu */}
             <div
                 className={cn(
-                    'lg:hidden overflow-hidden transition-height duration-300 ease-in-out',
+                    'lg:hidden overflow-hidden  transition-height duration-300 ease-in-out',
                     isMobileMenuOpen ? 'h-auto' : 'h-0'
                 )}
             >

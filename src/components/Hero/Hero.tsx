@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaArrowDown, FaCog } from 'react-icons/fa';
+import { FaArrowDown, FaArrowLeft, FaArrowRight, FaCog } from 'react-icons/fa';
 import { Button } from '../UI/button';
 const Hero = () => {
     return (
@@ -25,17 +25,18 @@ const Hero = () => {
                             <Button
                                 variant={'gradient'}
                                 size={'lg'}
+                                className='max-sm:w-full'
                             >
                                 <a
                                     href='/contact'
-                                    className={`inline-flex items-center justify-center  px-6 py-3 rounded-lg font-medium transition-colors`}
+                                    className={`inline-flex items-center justify-center  text-white  px-6 py-3 rounded-lg font-medium transition-colors`}
                                 >
-                                    <span className='mr-2'>Get Started</span>
-                                    <FaArrowDown />
+                                    <span className='mr-2'>Get Started</span>{' '}
+                                    <FaArrowRight />
                                 </a>
                             </Button>
                             <Button
-                                className={` hover:bg-purple-400`}
+                                className={`bg-purple-500 hover:bg-purple-400`}
                                 size={'lg'}
                             >
                                 <a

@@ -28,7 +28,7 @@ const App = () => {
     };
 
     return (
-        <div className='dark:bg-zinc-900 dark:text-white'>
+        <div className='dark:bg-zinc-900 dark:text-white sm:max-w-screen max-sm:overflow-hidden'>
             <Router>
                 <ScrollToTop />
 

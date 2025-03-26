@@ -1,5 +1,13 @@
 import React, { useState } from 'react';
 
+interface ImportMetaEnv {
+    VITE_API_URL: string;
+}
+
+interface ImportMeta {
+    env: ImportMetaEnv;
+}
+
 interface SignupProps {
     onSuccess?: (userData: any) => void;
 }
@@ -58,7 +66,7 @@ const Signup: React.FC<SignupProps> = ({ onSuccess }) => {
             console.log('Sending payload:', payload); // Debug log
 
             const response = await fetch(
-                'http://192.168.1.168:8080/api/users',
+                `${import.meta.env.VITE_API_URL}/api/users/signup`,
                 {
                     method: 'POST',
                     headers: {
@@ -88,6 +96,14 @@ const Signup: React.FC<SignupProps> = ({ onSuccess }) => {
                     console.error('Error parsing error response:', e);
                 }
                 throw new Error(errorMessage);
+            } else {
+                console.log('Registration successful'); // Debug
+                formData.username = '';
+                formData.email = '';
+                formData.password = '';
+                formData.confirmPassword = '';
+                formData.phone = '';
+                formData.terms = false;
             }
 
             // Handle successful response
@@ -128,7 +144,7 @@ const Signup: React.FC<SignupProps> = ({ onSuccess }) => {
     };
 
     return (
-        <div className='border border-gray-200 p-4 rounded-2xl backdrop-blur-2xl shadow-2xl'>
+        <div className='border border-gray-200 p-4 rounded-2xl bg-white/20 dark:bg-black/40 backdrop-blur-2xl shadow-2xl'>
             <h1 className='text-center text-2xl font-bold mb-2'>Sign Up</h1>
             {error && (
                 <div className='p-2 bg-red-100 text-red-700 text-sm rounded-md'>
@@ -137,112 +153,119 @@ const Signup: React.FC<SignupProps> = ({ onSuccess }) => {
             )}
             <form
                 onSubmit={handleSubmit}
-                className='grid grid-cols-2 max-sm:grid-cols-1 gap-4 '
+                className=''
             >
-                <div>
-                    <label
-                        htmlFor='username'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Username
-                    </label>
-                    <input
-                        type='text'
-                        id='username'
-                        value={formData.username}
-                        onChange={handleChange}
-                        className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500'
-                        required
-                    />
+                <div className='grid grid-cols-2 max-sm:grid-cols-1 gap-4 mb-4'>
+                    <div>
+                        <label
+                            htmlFor='username'
+                            className='block text-sm font-medium dark:text-white text-gray-700'
+                        >
+                            Username
+                        </label>
+                        <input
+                            type='text'
+                            id='username'
+                            value={formData.username}
+                            onChange={handleChange}
+                            placeholder='Enter your username'
+                            className='mt-1 block w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 placeholder:text-white dark:text-white'
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            htmlFor='email'
+                            className='block text-sm font-medium dark:text-white text-gray-700'
+                        >
+                            Email
+                        </label>
+                        <input
+                            type='email'
+                            id='email'
+                            value={formData.email}
+                            onChange={handleChange}
+                            placeholder='Enter your email'
+                            className='mt-1 block w-full px-3 py-2 bg-transparent border border-gray-300 dark:text-white rounded-md shadow-sm focus:outline-none placeholder:dark:text-white focus:ring-purple-500 focus:border-purple-500'
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            htmlFor='password'
+                            className='block text-sm font-medium text-gray-700 dark:text-white'
+                        >
+                            Password
+                        </label>
+                        <input
+                            type='password'
+                            id='password'
+                            value={formData.password}
+                            onChange={handleChange}
+                            placeholder='Enter your password'
+                            className='mt-1 block w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 dark:text-white placeholder:dark:text-white'
+                            required
+                            minLength={4}
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            htmlFor='confirmPassword'
+                            className='block text-sm font-medium text-gray-700 dark:text-white'
+                        >
+                            Confirm Password
+                        </label>
+                        <input
+                            type='password'
+                            id='confirmPassword'
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            placeholder='Confirm your password'
+                            className='mt-1 block w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 dark:text-white placeholder:dark:text-white'
+                            required
+                            minLength={4}
+                        />
+                    </div>
+
+                    <div>
+                        <label
+                            htmlFor='phone'
+                            className='block text-sm font-medium text-gray-700 dark:text-white'
+                        >
+                            Phone Number (optional)
+                        </label>
+                        <input
+                            type='tel'
+                            id='phone'
+                            value={formData.phone}
+                            onChange={handleChange}
+                            placeholder='Enter your phone number'
+                            className='mt-1 block w-full px-3 py-2 bg-transparent border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500 dark:text-white placeholder:dark:text-white'
+                        />
+                    </div>
                 </div>
 
-                <div>
-                    <label
-                        htmlFor='email'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Email
-                    </label>
-                    <input
-                        type='email'
-                        id='email'
-                        value={formData.email}
-                        onChange={handleChange}
-                        className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500'
-                        required
-                    />
-                </div>
-
-                <div>
-                    <label
-                        htmlFor='password'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Password
-                    </label>
-                    <input
-                        type='password'
-                        id='password'
-                        value={formData.password}
-                        onChange={handleChange}
-                        className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500'
-                        required
-                        minLength={4}
-                    />
-                </div>
-
-                <div>
-                    <label
-                        htmlFor='confirmPassword'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Confirm Password
-                    </label>
-                    <input
-                        type='password'
-                        id='confirmPassword'
-                        value={formData.confirmPassword}
-                        onChange={handleChange}
-                        className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500'
-                        required
-                        minLength={4}
-                    />
-                </div>
-
-                <div>
-                    <label
-                        htmlFor='phone'
-                        className='block text-sm font-medium text-gray-700'
-                    >
-                        Phone Number (optional)
-                    </label>
-                    <input
-                        type='tel'
-                        id='phone'
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className='mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-purple-500 focus:border-purple-500'
-                    />
-                </div>
-
-                <div className='flex items-center'>
+                <div className='flex items-center m-2 '>
                     <input
                         id='terms'
                         name='terms'
                         type='checkbox'
                         checked={formData.terms}
                         onChange={handleChange}
-                        className='h-4 w-4 text-purple-600 focus:ring-purple-500 border-gray-300 rounded'
+                        className='h-4 w-4 bg-transparent text-purple-600 focus:ring-purple-500 border-gray-300 rounded-lg active:bg-gray-700'
                         required
                     />
                     <label
                         htmlFor='terms'
-                        className='ml-2 block text-sm text-gray-700'
+                        className='ml-2 block text-sm text-gray-700 dark:text-white'
                     >
                         I agree to the{' '}
                         <a
                             href='#'
-                            className='text-purple-600 hover:text-purple-500'
+                            className='text-purple-600 hover:text-purple-500 dark:text-purple-300'
                         >
                             Terms and Conditions
                         </a>

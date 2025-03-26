@@ -5,11 +5,11 @@ import { loginSchema, LoginFormData } from '../../lib/types';
 import { IoArrowForward, IoCloseCircle } from 'react-icons/io5';
 import { Button } from '../UI/button';
 
-const LoginPage: React.FC<{ onSignUpClick: () => void }> = ({
-    onSignUpClick,
-}: {
+interface LoginPageProps {
     onSignUpClick: () => void;
-}) => {
+    loginCLose: () => void;
+}
+const LoginPage: React.FC<LoginPageProps> = ({ onSignUpClick, loginCLose }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [showForgotPassword, setShowForgotPassword] = useState(false);
@@ -19,6 +19,7 @@ const LoginPage: React.FC<{ onSignUpClick: () => void }> = ({
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
@@ -33,23 +34,26 @@ const LoginPage: React.FC<{ onSignUpClick: () => void }> = ({
         setErrorMessage(null); // Clear any previous errors
 
         try {
-            // Simulate API call (replace with your actual API endpoint)
-            console.log('Login Data:', data); // For demonstration
+            // Simulate API call
+            console.log('Login Data:', data); // For demonstratio
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/users/login`,
+                {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data),
+                }
+            );
 
-            // For example:
-            // const response = await fetch('/api/login', {
-            //   method: 'POST',
-            //   headers: { 'Content-Type': 'application/json' },
-            //   body: JSON.stringify(data),
-            // });
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Login failed');
+            }
 
-            // if (!response.ok) {
-            //   const errorData = await response.json();
-            //   throw new Error(errorData.message || 'Login failed');
-            // }
-
-            // Successful login (replace with your actual redirect or state update)
+            //  Successful login (replace with your actual redirect or state update)
             console.log('Login successful!');
+            reset(); // Reset the form
+            loginCLose();
             // window.location.href = '/dashboard'; // Redirect to dashboard or other page
         } catch (error: any) {
             console.error('Login error:', error);

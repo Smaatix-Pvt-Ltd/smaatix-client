@@ -10,11 +10,11 @@ const Header = () => {
         { label: 'Products', href: '/products' },
         { label: 'Training', href: '/training' },
         { label: 'Software Solutions', href: '/software-solutions' },
-        // { label: 'Corporate Gifting', href: '/services' },
+
         { label: 'Staffing Solutions', href: '/staffing-solutions' },
         { label: 'Contact', href: '/contact' },
-        { label: 'About Us', href: '/about-us' },
         { label: 'Careers', href: '/careers' },
+        { label: 'About Us', href: '/about-us' },
 
         // { label: 'External', href: 'https://example.com', isExternal: true },
     ];
@@ -38,7 +38,7 @@ const Header = () => {
     return (
         <>
             <div className='sticky  top-0 z-50 bg-gradient-to-r from-purple-900 to-purple-400 dark:bg-gradient-to-r dark:from-black dark:to-[#1b1b1b] flex justify-evenly  shadow-lg drop-shadow-2xl dark:border-b-[1px] dark:border-zinc-300'>
-                <div className='w-full lg:pr-10 max-md:pr-2 max-md:ml-10'>
+                <div className='w-full lg:pr-10 max-ms:pr-2 md:ml-10'>
                     <Navbar
                         logo={
                             <a
@@ -48,7 +48,9 @@ const Header = () => {
                                 <img
                                     src='smaatix-logo.png'
                                     alt='Smaatix'
-                                    className='w-36 h-12 relative  rounded-md p-1 z-10'
+                                    className='w-36 h-12 relative  rounded-md p-1 z-10  '
+                                    width='100'
+                                    height='100'
                                 />
                                 <div className='absolute dark:bg-white rounded-full h-3 w-3/4  top-[29px] left-9 z-0'></div>
                             </a>
@@ -59,7 +61,7 @@ const Header = () => {
                     />
                 </div>
                 <Button
-                    className='mt-6 mr-10'
+                    className='mt-6 mr-10 max-sm:mx-1'
                     onClick={handleLoginClick}
                 >
                     Login
@@ -67,16 +69,19 @@ const Header = () => {
             </div>
 
             {LoginActive && (
-                <div className='inset-0 fixed bg-transparent  flex justify-center items-center z-20'>
+                <div className='inset-0 fixed bg-transparent  flex justify-center items-center z-20 max-sm:mr-1'>
                     <div
-                        className='absolute inset-0 w-screen h-screen z-30'
+                        className='absolute inset-0 w-screen h-screen bg-black/10  z-30'
                         onClick={handleLoginClose}
                     ></div>
                     <div className='z-40'>
                         {signupActive ? (
                             <SignUp />
                         ) : (
-                            <LoginPage onSignUpClick={handleSignUpClick} />
+                            <LoginPage
+                                onSignUpClick={handleSignUpClick}
+                                loginCLose={handleLoginClose}
+                            />
                         )}
                     </div>
                 </div>
