@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Videogallery from '../components/Training/Videogallery';
+import RecentWatchGallery from '../components/Training/ReacentWatchGallery';
 import Navbar from '../components/Training/Navbar';
 import { Folder } from 'lucide-react';
 import { useAuth } from "../layout/AuthContext";
@@ -10,9 +11,16 @@ const Training = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [course, setCourses] = useState<string[]>([]);
     const [courseSelected, setCourse] = useState('');
+    const [recentWatches, setRecentWatches] = useState(true);
     const [url, setUrl] = useState('');
     const [isLogin, setLogin] = useState(true)
+    const [videoId, setVideoId] = useState('');
+    const [progressTime, setProgressTime] = useState(0);
+    const userid="1";
     const { loginActive, signupActive, setLoginActive, setSignupActive } = useAuth();
+
+    const videoRef = useRef<HTMLVideoElement | null>(null);
+
     
 
     useEffect(() => {
@@ -30,7 +38,7 @@ const Training = () => {
         setIsLoading(true);
         
         
-        fetch(`http://192.168.1.202:8080/api/coursesentity/${activeTab}`, {
+        fetch(`http://192.168.1.168:8080/api/coursesentity/${activeTab}`, {
             method: 'GET',
             headers: {
                 'Cache-Control': 'max-age=3600, must-revalidate', // Cache response for 1 hour
@@ -74,6 +82,51 @@ const Training = () => {
         }
     },[url]);
 
+    useEffect(() => {
+        const video = videoRef.current;
+        if (!video) return;
+
+        let lastLoggedTime = 0; // Track last logged second
+
+        const sendProgressUpdate = async (pausedAt: number) => {
+            const payload = {
+                createdAt: new Date().toISOString(),
+                videoId: videoId,
+                duration: video.duration,
+                pausedAt: pausedAt
+            };
+
+            try {
+                const response = await fetch(`http://192.168.1.168:8080/api/histories/user/${userid}/video/${videoId}`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "*/*"
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    console.error("Failed to send video progress");
+                }
+            } catch (error) {
+                console.error("Error sending video progress:", error);
+            }
+        };
+
+        const handleTimeUpdate = () => {
+            const currentTime = Math.floor(video.currentTime);
+
+            if (currentTime > 0 && currentTime % 2 === 0 && currentTime !== lastLoggedTime) {
+                lastLoggedTime = currentTime;
+                sendProgressUpdate(currentTime);
+            }
+        };
+
+        video.addEventListener("timeupdate", handleTimeUpdate);
+
+    }, [videoId, url, userid]);
+    
     const handleCourseSelector = (courseName: string) => {
         setCourse(courseName);
     };
@@ -148,6 +201,16 @@ const Training = () => {
                             </div>
                         )}
                     </div>
+
+                      {recentWatches&&(  <RecentWatchGallery 
+                            setRecentWatches={setRecentWatches} 
+                            setProgressTime={setProgressTime} 
+                            activeTab={activeTab} 
+                            courseSelected={courseSelected} 
+                            setUrl={setUrl} 
+                            setVideoId={setVideoId} 
+                            userid={userid}
+                        />)}
     
                     <div className='mt-12 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden'>
                         <div className='p-6 border-b border-gray-200 dark:border-gray-700'>
@@ -156,12 +219,26 @@ const Training = () => {
                             </h2>
                         </div>
                         <div className='p-6'>
-                            <Videogallery activeTab={activeTab} courseSelected={courseSelected} setUrl={setUrl} />
+                            <Videogallery activeTab={activeTab} courseSelected={courseSelected} setUrl={setUrl} setVideoId={setVideoId}/>
                         </div>
                     </div>
     
-                    <div className='flex justify-center items-center p-8'>
-                         {url && <video controls src={url} className='w-full h-auto' style={{ maxHeight: '800px' }}></video>}
+                    <div className="flex justify-center items-center p-8 px-1">
+                        {url && (
+                            <video
+                                ref={videoRef}
+                                controls
+                                src={url}
+                                className="w-full h-auto"
+                                style={{ maxHeight: '800px' }}
+                                onLoadedMetadata={(e) => {
+                                    if (progressTime) {  // Ensure progress time is available
+                                        e.currentTarget.currentTime = progressTime;
+                                    }
+                                }}
+                            ></video>
+                        )}
+
                     </div>
                 </div>
             </div>

@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { Play} from "lucide-react";
 
 interface Video {
   videourl: string;
+  videoId: string;
   imgurl: string;
   title: string;
   description: string;
 }
 
-interface VideoGalleryProps {
+type VideoGalleryProps = {
   activeTab: string;
   courseSelected: string;
-  setUrl: (url: string) => void;
-}
+  setUrl: React.Dispatch<React.SetStateAction<string>>;
+  setVideoId: React.Dispatch<React.SetStateAction<string>>;
+};
 
-const VideoGallery: React.FC<VideoGalleryProps> = ({ activeTab, courseSelected, setUrl }) => {
+const VideoGallery: React.FC<VideoGalleryProps> = ({ activeTab, courseSelected, setUrl, setVideoId }) => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState<Record<string, any>>({});
 
   useEffect(() => {
     if (activeTab && courseSelected) {
-      fetch(`http://192.168.1.202:8080/api/coursesentity/${activeTab}/${courseSelected}`)
+      fetch(`http://192.168.1.168:8080/api/coursesentity/${activeTab}/${courseSelected}`)
         .then((res) => res.json())
         .then((responseData) => {
           setData(responseData || {});
+          console.log(responseData);
         })
         .catch((err) => {
           console.error("Error fetching data:", err);
@@ -77,16 +81,25 @@ const VideoGallery: React.FC<VideoGalleryProps> = ({ activeTab, courseSelected, 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {videos.map((video, index) => (
             <div
-              onClick={() => setUrl(video.videourl)}
-              key={index}
-              className="bg-white dark:bg-gray-800 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            onClick={() => {
+              setUrl(video.videourl);
+              setVideoId(video.videoId);
+          }}
+                        key={index}
+             className="group relative bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition-all duration-300 cursor-pointer overflow-hidden"
+
             >
-              <img
-                src={video.imgurl}
-                loading="lazy" 
-                alt={video.title}
-                className="w-full h-48 object-cover rounded-t-lg"
-              />
+              <div className="relative">
+                  <img
+                  src={video.imgurl}
+                  loading="lazy" 
+                  alt={video.title}
+                  className="w-full h-48 object-cover rounded-t-lg"
+                />
+                <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 flex items-center justify-center transition-all duration-300">
+                  <Play className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={48} />
+                </div>
+              </div>
               <div className="p-4">
                 <h3 className="text-lg font-semibold mb-2 dark:text-white">
                   {video.title}
