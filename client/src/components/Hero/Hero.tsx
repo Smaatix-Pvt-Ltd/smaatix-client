@@ -10,7 +10,6 @@ const Hero = () => {
             <BackgroundLines className='flex justify-center items-center z-10' >
 
             {/* Optional Floating Blobs */}
-            <div className='absolute grid-blob w-96 h-96 rounded-full bg-gradient-to-br from-purple-900 to-purple-700  dark:from-purple-800 dark:to-purple-300 blur-3xl opacity-900  z-0'></div>
 
             
                    
