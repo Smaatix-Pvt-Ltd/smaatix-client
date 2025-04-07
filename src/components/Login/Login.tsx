@@ -17,7 +17,7 @@ const LoginPage = () => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
     const [resetEmail, setResetEmail] = useState('');
     const [otpSent, setOtpSent] = useState(false); // Track if OTP has been sent
-    const { backendUrl, setIsLoggedin, getUserData } = useContext(AppContext);
+    const { backendUrl, setIsLoggedin, getUserData, setUserData } = useContext(AppContext);
     const {
         handleSignUpClick: onSignUpClick,
         handleLoginClose,
@@ -42,26 +42,24 @@ const LoginPage = () => {
 
     const onSubmit = async (data: LoginFormData) => {
         setIsSubmitting(true);
-        setErrorMessage(null); // Clear any previous errors
-
+        setErrorMessage(null);
+      
         try {
-            // Simulate API call
-            console.log('Login Data:', data); // For demonstratio
-            const response = await axios.post(
-                `${backendUrl}/api/auth/login`,
-                data
-            );
+          const response = await axios.post(`${backendUrl}/api/auth/login`, data, {
+            withCredentials: true,
+          });
+      
+          console.log('Login response:', response);
+      
+          if (response.status === 200) {
+            if (setIsLoggedin) {
+                setIsLoggedin(true);
+            }
 
-            if (response.status === 200) {
-                if (setIsLoggedin) {
-                    setIsLoggedin(true);
-                }
-
-                if (getUserData) {
-                    getUserData();
-                }
-                toast(response.data.message);
-                navigate('/');
+            setUserData(response.data.user);
+            
+            toast(response.data.message);
+            navigate('/');
             } else {
                 toast.error(response.data.message);
             }
@@ -70,14 +68,26 @@ const LoginPage = () => {
                 handleLoginClose();
             }
 
-            // window.location.href = '/dashboard'; // Redirect to dashboard or other page
+        // window.location.href = '/dashboard'; // Redirect to dashboard or other page
         } catch (error: any) {
-            toast.error('Login error:', error);
-            // setErrorMessage(error.message || 'An error occurred during login.');
+          console.error('Login error:', error);
+          
+          if (error.response) {
+            // Handle server response errors
+            const message = error.response.data?.message || 'Login failed';
+            toast.error(message);
+            setErrorMessage(message);
+          } else {
+            // Handle network/other errors
+            toast.error('Network error. Please try again.');
+            setErrorMessage('Network error. Please try again.');
+          }
         } finally {
-            setIsSubmitting(false);
+          setIsSubmitting(false);
+          reset();
+          handleLoginClose?.();
         }
-    };
+      };
 
     const handleSendOTP = async () => {
         // Simulate sending OTP (replace with your actual API call)
@@ -86,6 +96,7 @@ const LoginPage = () => {
                 `${backendUrl}/api/auth/send-reset-otp`,
                 {
                     method: 'POST',
+                    credentials: 'include',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email: resetEmail }),
                 }

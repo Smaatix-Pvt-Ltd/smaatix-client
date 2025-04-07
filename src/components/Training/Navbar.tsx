@@ -13,7 +13,7 @@ const Navbar: React.FC<NavbarProps> = ({ activeTab, onTabChange }) => {
   useEffect(() => {
     setDomains([]); // Reset domains on every fetch to avoid keeping previous values
     
-    fetch("http://192.168.1.202:8080/api/course/domains")
+    fetch("http://192.168.1.202:3000/api/course/domains")
       .then((res) => res.json())
       .then((data) => {
         if (Array.isArray(data)) {

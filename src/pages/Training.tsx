@@ -29,9 +29,13 @@ const Training = () => {
     const { isLoggedin, userData } = useContext(AppContext);
     console.log("User Data:", isLoggedin);
     
-    const { handleLoginClick, setPopup, popup, handleLoginClose } = useContext(LoginPopUpContext);
+    const { handleLoginClick} = useContext(LoginPopUpContext);
 
     const videoRef = useRef<HTMLVideoElement | null>(null);
+
+    useEffect(() => {
+         // Set default tab to 'home' on initial render
+    }, []);
 
     useEffect(() => {
         if (!activeTab) return;
@@ -56,7 +60,7 @@ const Training = () => {
             return;
         }
 
-        fetch(`http://192.168.1.202:8080/api/course/courses/${activeTab}`, {
+        fetch(`http://192.168.1.202:3000/api/course/courses/${activeTab}`, {
             method: 'GET',
             headers: {
                 'Cache-Control': 'max-age=3600, must-revalidate',
@@ -123,9 +127,9 @@ const Training = () => {
         if (!video) return;
 
         let lastLoggedTime = 0; // Track last logged second
+        console.log("userData:", userData);
 
         const sendProgressUpdate = async (pausedAt: number) => {
-            if (!userData || !userData.userId) return;
             
             const payload = {
                 videoId: videoId,
@@ -134,7 +138,7 @@ const Training = () => {
             };
 
             try {
-                const response = await fetch(`http://192.168.1.202:8080/api/history/add-history/${userData.userId}`, {
+                const response = await fetch(`http://192.168.1.202:3000/api/history/add-history/${userData.id}`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -170,7 +174,7 @@ const Training = () => {
 
     const fetchVideos = async () => {
         // Check if user is logged in and userId exists before making the API call
-        if (!isLoggedin || !userData || !userData.userId) {
+        if (!isLoggedin || !userData || !userData.id) {
           console.log("User not logged in or userId not available");
           setRecentWatches(false);
           setIsLoading(false);
@@ -180,7 +184,7 @@ const Training = () => {
         setIsLoading(true);
         
         try {
-          const response = await fetch(`http://192.168.1.202:8080/api/history/recent-watches/${userData.userId}`);
+          const response = await fetch(`http://192.168.1.202:3000/api/history/recent-watches/${userData.id}`);
           
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -223,6 +227,7 @@ const Training = () => {
     const handleCourseSelector = (courseName: string) => {
         setCourse(courseName);
     };
+
 
     return (
         <div className="relative">

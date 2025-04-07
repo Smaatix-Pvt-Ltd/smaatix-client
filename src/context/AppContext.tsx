@@ -25,43 +25,51 @@ export const AppContextProvider: React.FC<{ children: React.ReactNode }> = (
 
     const getAuthStatus = async () => {
         try {
-            const response = await axios.get(
-                `${backendUrl}/api/auth/is-verified`,
-                {
-                    withCredentials: true,
-                }
-            );
-            console.log(response);
-            if (response.status !== 200) {
-                toast.error('Something went wrong while fetching auth status!');
-                return;
+            const response = await axios.get(`${backendUrl}/api/auth/is-verified`, {
+                withCredentials: true,
+            });
+
+            if (response.data.success) {
+                setIsLoggedin(true);
+                await getUserData();
+            } else {
+                toast.error(response.data.message || 'Authentication failed');
             }
-            setIsLoggedin(true);
-            getUserData();
-        } catch (error: unknown) {
-            const response = (error as unknown | any)?.response;
-            toast.error(response.data.message);
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message || 'Error checking authentication status');
+            } else {
+                toast.error('An unexpected error occurred');
+            }
+            setIsLoggedin(false);
+        } finally {
+            
         }
     };
+
     const getUserData = async () => {
         try {
             const response = await axios.get(`${backendUrl}/api/user/data`, {
                 withCredentials: true,
             });
-            console.log("Login Data:",response);
-            if (response.status !== 200) {
-                toast.error('Something went wrong while fetching user data!');
+
+            if (response.data.success) {
+                setUserData(response.data.user); // Changed from userData to user
+            } else {
+                toast.error(response.data.message || 'Failed to fetch user data');
             }
-            const data = await response.data;
-            setUserData(data.userData);
         } catch (error) {
-            toast.error('Something went wrong while fetching user data!');
+            if (axios.isAxiosError(error)) {
+                toast.error(error.response?.data?.message || 'Error fetching user data');
+            } else {
+                toast.error('An unexpected error occurred');
+            }
         }
     };
 
     useEffect(() => {
         getAuthStatus();
-    }, []);
+    }, [backendUrl]); // Added backendUrl as dependency
 
     const value: AppValue = {
         backendUrl,

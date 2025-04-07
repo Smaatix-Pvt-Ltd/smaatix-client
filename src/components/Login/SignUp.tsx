@@ -77,7 +77,7 @@ const SignUpPage = () => {
             setIsSubmitting(false);
         }
     };
-
+    
     return (
         <div className='bg-white/70 dark:bg-gray-800/40 backdrop-blur-lg shadow-2xl shadow-slate-800 rounded-3xl sm:mx-10 px-8 pt-6 pb-8 mb-4 w-full max-w-md z-50'>
             <h2 className='text-2xl font-bold mb-5 text-center'>Sign Up</h2>

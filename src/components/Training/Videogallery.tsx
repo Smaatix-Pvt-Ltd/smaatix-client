@@ -26,7 +26,7 @@ const VideoGallery: React.FC<VideoGalleryProps> = ({ activeTab, courseSelected, 
   useEffect(() => {
     if (activeTab && courseSelected) {
       setIsLoading(true);
-      fetch(`http://192.168.1.202:8080/api/course/courses/${activeTab}/${courseSelected}`)
+      fetch(`http://192.168.1.202:3000/api/course/courses/${activeTab}/${courseSelected}`)
         .then((res) => res.json())
         .then((responseData) => {
           // Make sure responseData is an array before setting it
