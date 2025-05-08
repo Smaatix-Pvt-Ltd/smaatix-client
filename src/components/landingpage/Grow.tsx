@@ -50,7 +50,7 @@ const Grow: React.FC = () => {
                         size='lg'
                         asChild
                     >
-                        <a href='/learn-more'>
+                        <a href='/products'>
                             {' '}
                             {/* Link to relevant page */}
                             <span className='mr-2'>Learn More</span>

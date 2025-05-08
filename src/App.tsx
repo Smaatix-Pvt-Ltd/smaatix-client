@@ -16,6 +16,7 @@ import Training from './pages/Training.js';
 import Products from './pages/Products.js';
 import Staffingsolutions from './pages/Staffingsolutions.js';
 import { ToastContainer } from 'react-toastify';
+import ApplicationForm from './components/JobApplicationForm/JobApplicationForm.tsx'
 
 const App = () => {
     const ScrollToTop = () => {
@@ -75,6 +76,10 @@ const App = () => {
                     <Route
                         path='/staffing-solutions'
                         element={<Staffingsolutions />}
+                    />
+                    <Route
+                        path='/Application-Form'
+                        element={<ApplicationForm />}
                     />
                     <Route
                         path='*'

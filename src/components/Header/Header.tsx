@@ -3,16 +3,18 @@ import { Button } from '../UI/button';
 import Navbar from '../UI/navbar'; // Your existing Navbar
 import { AppContext } from '../../context/AppContext';
 import { IoArrowForward } from 'react-icons/io5';
-import { FiMenu, FiX } from 'react-icons/fi'; // Icons for mobile menu toggle
+import { FiMenu, FiX, FiActivity } from 'react-icons/fi';
+import clsx from 'clsx';
 import { toast } from 'react-toastify'; // Assuming setup elsewhere
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'; // Use Link for navigation
 import { LoginPopUpContext } from '../../context/LoginPopContext';
 import LoginPopup from '../Login/LoginPopup';
 import { AccountVerifyContext } from '../../context/AccountVerifyContext';
-import AccountVerify from '../accountVerification/accountVerify';
+// import AccountVerify from '../accountVerification/accountVerify';
 import ThemeToggle from '../UI/ThemeToggle';
-import clsx from 'clsx'; // For conditional classes
+import ScrollingText from '../UI/ScrollingText'; // Assuming you have a scrolling text component
+// For conditional classes
 
 const Header: React.FC = () => {
     // Added React.FC type
@@ -151,16 +153,33 @@ const Header: React.FC = () => {
                             // Remove fixed width/height attributes if using CSS size
                         />
                     </Link>
-
+    
                     {/* Desktop Navigation (Hidden on Mobile/Tablet) */}
                     <nav className='hidden lg:flex items-center'>
                         <Navbar navItems={NavItems} />
                     </nav>
-
+    
                     {/* Right Side Controls */}
                     <div className='flex items-center gap-2 md:gap-3'>
+                        {/* Clinimode Special Button */}
+                        <a 
+                            href="https://clinimode.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="group inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 bg-gradient-to-r from-blue-500/20 to-teal-500/20 text-foreground hover:from-blue-500/30 hover:to-teal-500/30 border border-blue-500/30 shadow-sm transition-all duration-300 relative overflow-hidden"
+                            aria-label="Visit Clinimode"
+                        >
+                            {/* Glow effect */}
+                            <span className="absolute inset-0 bg-gradient-to-r from-blue-400/0 via-blue-400/40 to-teal-400/0 blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-500"></span>
+                            
+                            {/* Content */}
+                            <FiActivity className="h-5 w-5 text-blue-500 relative z-10" />
+                            <span className="text-sm font-medium hidden sm:inline relative z-10 bg-gradient-to-r from-blue-500 to-teal-500 bg-clip-text text-transparent font-semibold">Clinimode</span>
+                            <h1 className="sr-only">Clinimode</h1>
+                        </a>
+    
                         <ThemeToggle />
-
+    
                         {/* --- User/Login Section --- */}
                         {userData ? (
                             <div className='group relative'>
@@ -212,12 +231,12 @@ const Header: React.FC = () => {
                                 </Button>
                             </div>
                         )}
-
+    
                         {/* Mobile Menu Toggle (Hidden on Large screens) */}
                         <div className='lg:hidden'>
                             <button
                                 onClick={toggleMobileMenu}
-                                className='inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-[--interactive-bg-hover] focus:outline-none '
+                                className='inline-flex items-center justify-center rounded-md p-2 text-foreground hover:bg-[--interactive-bg-hover] focus:outline-none'
                                 aria-controls='mobile-menu'
                                 aria-expanded={isMobileMenuOpen}
                             >
@@ -237,7 +256,7 @@ const Header: React.FC = () => {
                         </div>
                     </div>
                 </div>
-
+    
                 {/* --- Mobile Menu --- */}
                 <div
                     id='mobile-menu'
@@ -250,7 +269,7 @@ const Header: React.FC = () => {
                 >
                     <nav className='space-y-1 px-4 pb-4 pt-2 max-md:bg-background backdrop-blur-3xl'>
                         {renderNavLinks(true)}
-
+    
                         {/* Login Button for Mobile Menu (if not logged in) */}
                         {!userData && (
                             <div className='mt-4 border-t border-[--color-border] pt-4'>
@@ -271,12 +290,13 @@ const Header: React.FC = () => {
                     </nav>
                 </div>
                 {/* --- End Mobile Menu --- */}
+                <ScrollingText/>
             </header>
-
+    
             {/* Popups remain outside the header */}
             <LoginPopup />
-
-            {verifyAccountPopup && <AccountVerify />}
+    
+            {/* {verifyAccountPopup && <AccountVerify />} */}
         </>
     );
 };

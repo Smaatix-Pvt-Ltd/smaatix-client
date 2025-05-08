@@ -5,7 +5,7 @@ import { FieldValues, useForm } from 'react-hook-form';
 import { contactFormSchema, TcontactFormSchema } from '../../lib/types'; // Ensure this path is correct
 import { zodResolver } from '@hookform/resolvers/zod';
 import emailjs from 'emailjs-com';
-// import toast from 'react-hot-toast'; // Optional for better UX
+import { toast } from 'react-toastify';
 
 const ContactForm: React.FC = () => {
     const {
@@ -37,14 +37,14 @@ const ContactForm: React.FC = () => {
                 public_key
             );
             if (response.status === 200) {
-                alert('Message sent successfully!');
-                // toast.success("Message sent successfully!");
+                // alert('Message sent successfully!');
+                toast.success("Message sent successfully!");
                 reset();
             } else {
-                alert(
-                    `Failed to send message. Status: ${response.status}, Text: ${response.text}`
-                );
-                // toast.error(`Failed to send message: ${response.text}`);
+                // //alert(
+                //     `Failed to send message. Status: ${response.status}, Text: ${response.text}`
+                // );
+                toast.error(`Failed to send message: ${response.text}`);
             }
         } catch (error: any) {
             console.error('EmailJS Error:', error);

@@ -84,7 +84,7 @@ const Navbar: React.FC<NavbarProps> = ({
     return (
         <nav
             className={cn(
-                'w-fit py-4 transition-shadow duration-300 bg-transparent backdrop-blur-md ',
+                'w-fit py-4 transition-shadow duration-300 bg-transparent',
                 isSticky && 'sticky top-0 z-50',
 
                 className

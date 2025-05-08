@@ -100,7 +100,7 @@ const AboutUs: React.FC = () => {
             {/* Why Choose Us Section */}
             <WhyUs />
             {/* Meet Our Team Section  */}
-            <Team />
+            {/* <Team /> */}
             {/* Life at Smaatix Section */}
 
             <section className='py-24 md:py-32 px-4 bg-background dark:bg-opacity-50'>

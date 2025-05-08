@@ -22,13 +22,11 @@ export const Contact: React.FC = () => {
                         36/5, Hustlehub Tech Park, Somasundarapalya Main Rd,
                         adjacent 27th Main Road, ITI Layout, Sector 2,
                         HaralukunteVillage, HSR Layout, Bengaluru,
-                        Karnataka-560102
+                        Karnataka, India-560102
                     </div>
                     <h3>Address 2:</h3>
                     <div className='text-sm text-foreground-secondary'>
-                        Thirumenahalli Main Rd, Block 3, Agrahara Badavane,
-                        Bengaluru, Thirumenahalli, Karnataka-560064 (below SLV
-                        HITECH STAY)
+                        Near Bharathi City, Thirumenahalli, Karnataka, India-560064 (below SLV HITECH STAY)
                     </div>
                 </>
             ),
@@ -36,7 +34,7 @@ export const Contact: React.FC = () => {
         {
             icon: <FaPhone />,
             label: 'Phone',
-            value: '9845442227',
+            value: '+91 9845442227',
             href: 'tel:+91 9845442227',
         },
         {

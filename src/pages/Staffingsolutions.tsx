@@ -9,6 +9,7 @@ import {
 } from 'react-feather';
 import Card from '../components/Staffingsolutions/Card';
 import { Button } from '../components/UI/button';
+import Solutions from '../assets/Images/solutions.png'; // Adjusted import path
 // import PlaceholderImage from '../assets/Images/placeholder-staffing.jpg'; // Example path
 
 type Solution = {
@@ -45,7 +46,7 @@ const solutions: Solution[] = [
     },
     {
         logo: <Users size={28} />,
-        heading: 'Train & Deploy Programs', // Refined title
+        heading: 'Hire, Train & Deploy Programs', // Refined title
         description:
             'Custom training packages followed by deployment into your projects.', // Refined text
         linkText: 'Learn More',
@@ -152,7 +153,7 @@ const StaffingSolutions: React.FC = () => {
                         style={{ animationDelay: '200ms' }}
                     >
                         <img
-                            // src={PlaceholderImage} // Use a relevant placeholder or actual image
+                            src={Solutions} // Use a relevant placeholder or actual image
                             alt='Team collaborating on staffing solutions'
                             // Elegant image styling
                             className='w-full h-auto object-cover rounded-xl shadow-[var(--card-shadow)] border border-[--card-border]'

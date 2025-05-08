@@ -18,6 +18,7 @@ const LoginPage = () => {
     const [resetEmail, setResetEmail] = useState('');
     const [otpSent, setOtpSent] = useState(false); // Track if OTP has been sent
     const { backendUrl, setIsLoggedin, getUserData, setUserData } = useContext(AppContext);
+
     const {
         handleSignUpClick: onSignUpClick,
         handleLoginClose,
@@ -40,35 +41,123 @@ const LoginPage = () => {
         console.log(showForgotPassword);
     }, [showForgotPassword]);
 
+    const saveLocationData = async (userData, locationData) => {
+        try {
+            // Make sure to send the userId directly in the body
+            const dataToSend = {
+                userId: userData.id,
+                ...locationData
+            };
+            
+            console.log('Sending location data:', dataToSend);
+            
+            const response = await axios.post(`${backendUrl}/api/locationdata/add`, dataToSend, {
+                withCredentials: true,
+            });
+            
+            console.log('Location data saved:', response.data);
+        } catch (error) {
+            console.error('Error saving location data:', error);
+            // Don't show toast to user as this is a background operation
+        }
+    };
+
     const onSubmit = async (data: LoginFormData) => {
         setIsSubmitting(true);
         setErrorMessage(null);
-      
+        
         try {
           const response = await axios.post(`${backendUrl}/api/auth/login`, data, {
             withCredentials: true,
           });
-      
+          
           console.log('Login response:', response);
-      
+          
           if (response.status === 200) {
             if (setIsLoggedin) {
-                setIsLoggedin(true);
+              setIsLoggedin(true);
             }
-
-            setUserData(response.data.user);
+      
+            const userData = response.data.user;
+            setUserData(userData);
+            
+            // Request user location permission
+            if (navigator.geolocation) {
+              try {
+                toast.info("Please allow location access to enhance your experience.");
+                navigator.geolocation.getCurrentPosition(
+                  async (position) => {
+                    // User allowed location access
+                    const { latitude, longitude } = position.coords;
+                    console.log('User precise location:', { latitude, longitude });
+                    
+                    // You can still get additional info from IP-based service
+                    try {
+                      const locationResponse = await fetch('https://ipapi.co/json/');
+                      const locationData = await locationResponse.json();
+                      console.log('Additional location details:', locationData);
+                      
+                      // Save complete location data to backend
+                      await saveLocationData(userData, {
+                        ...locationData,
+                        latitude, 
+                        longitude
+                      });
+                    } catch (ipError) {
+                      console.error('Error fetching IP location:', ipError);
+                      
+                      // Save just coordinates if IP lookup fails
+                      await saveLocationData(userData, {
+                        latitude,
+                        longitude
+                      });
+                    }
+                  },
+                  async (error) => {
+                    // User denied location access or error occurred
+                    console.error('Geolocation permission error:', error.message);
+                    
+                    // Fallback to IP-based location
+                    try {
+                      const locationResponse = await fetch('https://ipapi.co/json/');
+                      const locationData = await locationResponse.json();
+                      console.log('Fallback location details:', locationData);
+                      
+                      // Save IP-based location data
+                      await saveLocationData(userData, locationData);
+                    } catch (ipError) {
+                      console.error('Fallback location error:', ipError);
+                    }
+                  },
+                  { enableHighAccuracy: true, timeout: 5000, maximumAge: 0 }
+                );
+              } catch (geoError) {
+                console.error('Geolocation API error:', geoError);
+              }
+            } else {
+              console.log('Geolocation is not supported by this browser');
+              // Fallback to IP-based location
+              try {
+                const locationResponse = await fetch('https://ipapi.co/json/');
+                const locationData = await locationResponse.json();
+                console.log('IP-based location details:', locationData);
+                
+                // Save IP-based location data
+                await saveLocationData(userData, locationData);
+              } catch (ipError) {
+                console.error('Error fetching IP location:', ipError);
+              }
+            }
             
             toast(response.data.message);
             navigate('/');
-            } else {
-                toast.error(response.data.message);
-            }
-            reset(); // Reset the form
-            if (handleLoginClose) {
-                handleLoginClose();
-            }
-
-        // window.location.href = '/dashboard'; // Redirect to dashboard or other page
+          } else {
+            toast.error(response.data.message);
+          }
+          reset(); // Reset the form
+          if (handleLoginClose) {
+            handleLoginClose();
+          }
         } catch (error: any) {
           console.error('Login error:', error);
           
@@ -84,10 +173,9 @@ const LoginPage = () => {
           }
         } finally {
           setIsSubmitting(false);
-          reset();
-          handleLoginClose?.();
         }
       };
+
 
     const handleSendOTP = async () => {
         // Simulate sending OTP (replace with your actual API call)
@@ -176,24 +264,11 @@ const LoginPage = () => {
                         )}
                     </div>
 
-                    {/* Replace with a real reCAPTCHA component */}
-                    {/* <div className='flex items-center justify-between mb-4'>
-                        <label className='flex items-center'>
-                            <input
-                                type='checkbox'
-                                className='mr-2'
-                            />
-                            <span className='text-sm text-gray-700'>
-                                I am not a robot
-                            </span>
-                        </label>
-                    </div> */}
-
                     <div className='flex items-center justify-between'>
                         <Button
                             variant={'slide'}
                             slideIcon={<IoArrowForward />}
-                            className='bg-transparent  text-black bg-gray-400 dark:bg-gray-600 dark:text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline'
+                            className='bg-transparent text-black bg-gray-400 dark:bg-gray-600 dark:text-white font-bold py-2 px-4 rounded-2xl focus:outline-none focus:shadow-outline'
                             type='submit'
                             disabled={isSubmitting}
                         >
@@ -201,21 +276,12 @@ const LoginPage = () => {
                         </Button>
                         <Button
                             variant={'link'}
-                            className=' font-medium text-sm text-blue-800 dark:text-blue-300 hover:text-blue-800'
+                            className='font-medium text-sm text-blue-800 dark:text-blue-300 hover:text-blue-800'
                             onClick={handleForgotPasswordClick}
                         >
                             Forgot Password?
                         </Button>
                     </div>
-
-                    {/* <div className='mt-4 text-center'>
-                        <button
-                            type='button'
-                            className='bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-                        >
-                            Login with Google
-                        </button>
-                    </div> */}
                 </form>
             ) : (
                 <div>
@@ -228,7 +294,7 @@ const LoginPage = () => {
                                 Enter your email:
                             </label>
                             <input
-                                className='shadow  appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                                className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
                                 id='reset-email'
                                 type='email'
                                 placeholder='Your email'
@@ -245,7 +311,6 @@ const LoginPage = () => {
                     ) : (
                         <div>
                             <PasswordReset email={resetEmail} />
-                            {/* You would add an input field here to enter the OTP and a button to verify it */}
                         </div>
                     )}
                 </div>

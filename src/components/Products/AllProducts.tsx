@@ -1,58 +1,80 @@
 import React from 'react';
 import ThreeDCard from './ThreedCard';
 
-import RoboImg from '../../assets/Images/Robo.jpg';
-import Plant from '../../assets/Images/Plant.png';
-import Blynk from '../../assets/Images/Blynk.jpg';
-import Gym from '../../assets/Images/Gym.png';
-import Cravecure from '../../assets/Images/Cravecure.png';
+// import RoboImg from '../../assets/Images/Robo.jpg';
+// import Plant from '../../assets/Images/Plant.png';
+// import Blynk from '../../assets/Images/Blynk.jpg';
+// import Gym from '../../assets/Images/Gym.png';
+// import Cravecure from '../../assets/Images/Cravecure.png';
+import clinimode from '../../assets/Images/clinimode.png';
+import hire from '../../assets/Images/hire.png';
+import pg from '../../assets/Images/pg.png';
 
 const projects = [
     // ... (keep project data as is, ensure image paths are correct) ...
     {
-        name: 'Object Based Navigation Robot',
+        name: 'Clinimode',
         description:
-            'Developed an autonomous robot for object-based navigation using ROS',
-        image: RoboImg,
+        'Clinimode powered by Smaatix is a comprehensive platform that helps you to train and place in their collaborated companies.',
+        image: clinimode,
         technologies: [
-            'Python',
-            'Android Development',
-            'Machine Learning',
-            'ROS',
+            'React',
+            'Node.js',
+            'Express.js',
+            'PostgreSQL',
+            'Tailwind CSS',
         ],
-        url: 'https://github.com/Abhivarun7/Robot_Navigation_Using_Vision',
+        url: 'https://clinimode.com',
     },
     {
-        name: 'App-Based Plant Disease Detection',
+        name: 'Smaart Hire',
         description:
-            'Developed a mobile application that uses image analysis to identify plant diseases accurately',
-        image: Plant,
-        technologies: ['Python', 'Data Analysis', 'Machine Learning'],
-        url: 'https://github.com/Abhivarun7/Plant_disease_detection',
+            'Smaart Hire is a platform that helps you hire the right talent for your company or find the right company for yourself.',
+        image: hire,
+        technologies: ['React',
+            'Node.js',
+            'Express.js',
+            'MongoDB',
+            'Tailwind CSS',],
+        url: null,
     },
     {
-        name: 'Home Automation System',
-        description:
-            'Designed and implemented a home automation system using NodeMCU connected to WiFi for receiving signals from the Blynk app.',
-        image: Blynk,
-        technologies: ['Blynk', 'NodeMCU', 'Relay Modules'],
-    },
-    {
-        name: 'Gym Management System',
-        description:
-            'Created a comprehensive web page for managing gym members, staff, and equipment efficiently.',
-        image: Gym,
-        technologies: ['HTML', 'CSS', 'Java Script', 'MySQL'],
-        url: 'https://www.linkedin.com/posts/abhi-ram-3b9251279_html-css-javascript-activity-7069574199547219968-R1nd?utm_source=share&utm_medium=member_desktop',
-    },
-    {
-        name: 'Food Ordering Website',
-        description:
-            'An e-commerce platform offering a seamless shopping experience with modern UI and efficient backend integration.',
-        image: Cravecure,
-        technologies: ['React', 'Node.js', 'Express.js', 'Mongodb'],
-        url: 'https://cravecure.netlify.app',
-    },
+    name: 'Cozy Nest',
+    description:
+        'Cozy Nest is a Paying Guest Management System. It is a platform that helps manage your paying guests’ payments, details, check-ins, and check-outs.',
+    image: pg,
+    technologies: [
+        'React',
+        'Spring Boot',
+        'PostgreSQL',
+        'Tailwind CSS',
+    ],
+    url: null,
+}
+
+    // {
+    //     name: 'Home Automation System',
+    //     description:
+    //         'Designed and implemented a home automation system using NodeMCU connected to WiFi for receiving signals from the Blynk app.',
+    //     image: Blynk,
+    //     technologies: ['Blynk', 'NodeMCU', 'Relay Modules'],
+    // },
+    // {
+    //     name: 'Gym Management System',
+    //     description:
+    //         'Created a comprehensive web page for managing gym members, staff, and equipment efficiently.',
+    //     image: Gym,
+    //     technologies: ['HTML', 'CSS', 'Java Script', 'MySQL'],
+    //     url: 'https://www.linkedin.com/posts/abhi-ram-3b9251279_html-css-javascript-activity-7069574199547219968-R1nd?utm_source=share&utm_medium=member_desktop',
+    // },
+    // {
+    //     name: 'Food Ordering Website',
+    //     description:
+    //         'An e-commerce platform offering a seamless shopping experience with modern UI and efficient backend integration.',
+    //     image: Cravecure,
+    //     technologies: ['React', 'Node.js', 'Express.js', 'Mongodb'],
+    //     url: 'https://cravecure.netlify.app',
+    // },
 ];
 const AllProducts = () => {
     return (

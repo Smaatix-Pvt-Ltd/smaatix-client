@@ -66,7 +66,7 @@ const ProductsHero = () => {
                             size='lg'
                             variant='secondary'
                             asChild
-                            className='flex max-w-fit border-gray-200'
+                            className='flex max-w-fit border-gray-200 dark:text-gray-200'
                         >
                             <a href='#request-demo'>
                                 <FaPhone className='mr-2 h-4 w-4' />
@@ -77,7 +77,7 @@ const ProductsHero = () => {
                             size='lg'
                             variant='secondary'
                             asChild
-                            className='flex max-w-fit border-gray-200'
+                            className='flex max-w-fit border-gray-200 dark:text-gray-200'
                         >
                             <a href='#contact-sales'>
                                 <FaEnvelope className='mr-2 h-4 w-4' />

@@ -48,7 +48,7 @@ const ContactCard = ({ contactDetails }) => {
                         </div>
                     ))}
                 </div>
-                <div className='mt-8'>
+                {/* <div className='mt-8'>
                     <h4 className={`font-medium mb-4 `}>Follow Us</h4>
                     <div className='flex space-x-4'>
                         <a
@@ -76,7 +76,7 @@ const ContactCard = ({ contactDetails }) => {
                             <FaInstagram />
                         </a>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     );

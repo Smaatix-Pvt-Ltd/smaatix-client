@@ -1,6 +1,7 @@
 import React from 'react';
 import JobCard from './JobCard'; // Assuming this component is styled using the theme
 import JobSearch from './JobSearch';
+import { AlertCircle } from 'lucide-react';
 
 interface Job {
     // id: string | number;
@@ -37,11 +38,11 @@ const JobListings: React.FC<JobListingsProps> = ({ jobs, onSearch }) => {
                         Find your next career opportunity and grow with us.
                     </p>
                 </div>
+                
                 <JobSearch onSearch={onSearch} />
-
+                
                 {/* Job Listings Grid */}
-
-                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10'>
+                {/* <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative z-10'>
                     {jobs && jobs.length > 0 ? (
                         jobs.map((job, index) => (
                             // Wrap JobCard for animation staggering
@@ -64,6 +65,29 @@ const JobListings: React.FC<JobListingsProps> = ({ jobs, onSearch }) => {
                             </p>
                         </div>
                     )}
+                </div> */}
+                
+                <div className="flex justify-center">
+                    <div className="bg-transparent border border-black dark:border-white rounded-lg p-4 my-4 shadow-sm max-w-xl w-full">
+                        <div className="flex items-start">
+                            <div className="w-full">
+                                <h3 className="font-medium text-gray text-lg dark:text-white">Important Notice</h3>
+                                <p className="text-white-700 mt-1">
+                                    We're currently in the process of uploading our job listings. For now, please use the
+                                    <span className="font-semibold"> "Apply for a job" </span>
+                                    button to submit your application as many positions may not yet be visible.
+                                </p>
+                                <div className="mt-3 text-center sm:text-left">
+                                    <a 
+                                        href="/Application-Form"
+                                        className="inline-block  bg-transparent border border-black hover:bg-blue-700 text-black font-medium py-2 px-4 rounded-md transition-colors dark:text-white dark:border-white dark:hover:bg-blue-700 dark:hover:text-white"
+                                    >
+                                        Apply for a job
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
