@@ -17,7 +17,7 @@ export interface FormData {
   dob: string;
   gender: string;
   address: string;
-  
+  countryCode:string;
   // Professional Details
   job_title: string;
   experience: string;
@@ -74,7 +74,7 @@ const JobApplicationForm: React.FC = () => {
     dob: '',
     gender: '',
     address: '',
-    
+    countryCode:'',
     // Professional Details
     job_title: '',
     experience: '',
@@ -122,6 +122,7 @@ const JobApplicationForm: React.FC = () => {
     switch(currentStep) {
       case 1: // Personal Info
         if (!formData.full_name.trim()) newErrors.full_name = 'Full name is required';
+        if (!formData.dob.trim()) newErrors.dob = 'Data of Birth is Required';
         if (!formData.email.trim()) {
           newErrors.email = 'Email is required';
         } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
@@ -233,52 +234,60 @@ const JobApplicationForm: React.FC = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-  
-    // Validate final step
-    if (!validateStep(step)) return;
-  
-    setIsLoading(true);
-  
-    try {
-      const formDataToSend = new FormData();
-  
-      // Add all form fields to FormData
-      Object.entries(formData).forEach(([key, value]) => {
-        if (key === 'skills' || key === 'tools') {
-          formDataToSend.append(key, JSON.stringify(value));
-        } else if (key === 'resume' || key === 'certificates') {
-          if (value) {
-            formDataToSend.append(key, value);
-          }
-        } else if (typeof value === 'boolean') {
-          formDataToSend.append(key, value.toString());
-        } else if (value !== null && value !== undefined) {
-          formDataToSend.append(key, value.toString());
+  e.preventDefault();
+
+  if (!validateStep(step)) return;
+
+  setIsLoading(true);
+
+  try {
+    formData.phone=formData.countryCode+" "+formData.phone;
+
+    const formDataToSend = new FormData();
+    console.log(formDataToSend);
+    
+
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === 'skills' || key === 'tools') {
+        formDataToSend.append(key, JSON.stringify(value));
+      } else if (key === 'resume' || key === 'certificates') {
+        if (value) {
+          formDataToSend.append(key, value);
         }
-      });
-  console.log(formData);
-  
-      // Send form data to the backend
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/register/add`, {
-        method: 'POST',
-        body: formDataToSend,
-      });
-  
-      if (!response.ok) {
-        throw new Error(`Server error: ${response.statusText}`);
+      } else if (typeof value === 'boolean') {
+        formDataToSend.append(key, value.toString());
+      } else if (value !== null && value !== undefined) {
+        formDataToSend.append(key, value.toString());
       }
-  
-      const result = await response.json();
-      console.log('Server response:', result);
-  
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error('Error submitting form:', error);
-    } finally {
-      setIsLoading(false);
+    });
+
+    
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/register/add`, {
+      method: 'POST',
+      body: formDataToSend,
+    });
+
+    if (response.status === 409) {
+      const errorData = await response.json();
+      alert(errorData.message || "User with this email or phone number already exists.");
+      return;
     }
-  };
+
+    if (!response.ok) {
+      throw new Error(`Server error: ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.log('Server response:', result);
+    setIsSubmitted(true);
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    alert("Something went wrong. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
   
   const renderStep = () => {
     switch(step) {
@@ -336,7 +345,7 @@ const JobApplicationForm: React.FC = () => {
         return null;
     }
   };
-
+  
   if (isSubmitted) {
     return <SubmitSuccess />;
   }

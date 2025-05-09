@@ -3,7 +3,7 @@ import { Button } from '../UI/button';
 import Navbar from '../UI/navbar'; // Your existing Navbar
 import { AppContext } from '../../context/AppContext';
 import { IoArrowForward } from 'react-icons/io5';
-import { FiMenu, FiX, FiActivity } from 'react-icons/fi';
+import { FiMenu, FiX, FiActivity, FiBriefcase } from 'react-icons/fi'; // Added FiBriefcase for Employee icon
 import clsx from 'clsx';
 import { toast } from 'react-toastify'; // Assuming setup elsewhere
 import axios from 'axios';
@@ -178,6 +178,23 @@ const Header: React.FC = () => {
                             <h1 className="sr-only">Clinimode</h1>
                         </a>
     
+                        {/* Employee Login Button */}
+                        <a 
+                            href="https://email.godaddy.com/" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            className="group inline-flex items-center justify-center gap-1.5 rounded-md px-3 py-1.5 bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-foreground hover:from-purple-500/30 hover:to-indigo-500/30 border border-purple-500/30 shadow-sm transition-all duration-300 relative overflow-hidden"
+                            aria-label="Employee Login"
+                        >
+                            {/* Glow effect */}
+                            <span className="absolute inset-0 bg-gradient-to-r from-purple-400/0 via-purple-400/40 to-indigo-400/0 blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-500"></span>
+                            
+                            {/* Content */}
+                            <FiBriefcase className="h-5 w-5 text-purple-500 relative z-10" />
+                            <span className="text-sm font-medium hidden sm:inline relative z-10 bg-gradient-to-r from-purple-500 to-indigo-500 bg-clip-text text-transparent font-semibold">Employee</span>
+                            <h1 className="sr-only">Employee Login</h1>
+                        </a>
+    
                         <ThemeToggle />
     
                         {/* --- User/Login Section --- */}
@@ -261,7 +278,7 @@ const Header: React.FC = () => {
                 <div
                     id='mobile-menu'
                     className={clsx(
-                        'absolute left-0 top-16 z-40 w-full origin-top transform border-b border-[--header-border] bg-[--header-background] shadow-lg backdrop-blur-lg transition-all duration-300 ease-in-out lg:hidden',
+                        'absolute left-0 top-16 z-40 w-full origin-top transform border-b border-[--header-border] bg-white shadow-lg backdrop-blur-lg transition-all duration-300 ease-in-out lg:hidden',
                         isMobileMenuOpen
                             ? 'scale-y-100 opacity-100'
                             : 'scale-y-95 opacity-0 pointer-events-none'
@@ -270,9 +287,23 @@ const Header: React.FC = () => {
                     <nav className='space-y-1 px-4 pb-4 pt-2 max-md:bg-background backdrop-blur-3xl'>
                         {renderNavLinks(true)}
     
+                        {/* Employee Login for Mobile Menu */}
+                        <div className='mt-4 pt-4 border-t border-[--color-border]'>
+                            <a 
+                                href="https://email.godaddy.com/" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="w-fit flex items-center gap-2 px-4 py-2 rounded-md bg-gradient-to-r from-purple-500/20 to-indigo-500/20 text-foreground hover:from-purple-500/30 hover:to-indigo-500/30 border border-purple-500/30"
+                                onClick={toggleMobileMenu} // Close menu on click
+                            >
+                                <FiBriefcase className="h-5 w-5 text-purple-500" />
+                                <span className="text-sm font-medium">Employee Login</span>
+                            </a>
+                        </div>
+    
                         {/* Login Button for Mobile Menu (if not logged in) */}
                         {!userData && (
-                            <div className='mt-4 border-t border-[--color-border] pt-4'>
+                            <div className='mt-4'>
                                 <Button
                                     variant={'default'} // Maybe solid button here
                                     size={'sm'}

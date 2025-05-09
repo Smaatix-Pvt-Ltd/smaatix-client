@@ -39,7 +39,7 @@ const SubmitSuccess: React.FC = () => {
                 </div>
                 <div className="ml-3">
                   <p className="text-sm text-blue-700">
-                    In case you don't hear from us within 2 weeks, feel free to contact our HR department at hr@company.com
+                    In case you don't hear from us within 2 weeks, feel free to contact our HR department at hr@smaatix.com
                   </p>
                 </div>
               </div>
